@@ -5,17 +5,11 @@ body {
 .main {
     margin-top: 48px;
 }
-.contact {
-    position: fixed;
-    top:10px;
-    right:10px;
-}
-@media screen and (min-height: 600px) {
+@media screen and (min-height: 650px) {
     .main {
         margin-top: 200px;
     }
 }
-
 h1, h2, .subtitle {
     font-family: 'Roboto Condensed', sans-serif;
 }
@@ -29,7 +23,16 @@ h2 {
     font-size: 56px;
     font-weight: 300;
 }
-
+::-moz-selection {
+    background: #2d6ca2;
+    color: #d6e9c6;
+    text-shadow: none;
+}
+::selection {
+    background: #2d6ca2;
+    color: #d6e9c6;
+    text-shadow: none;
+}
 .subtitle {
     color: #2d6ca2;
     font-size: 56px;
@@ -57,6 +60,100 @@ h2 {
 }
 .link-icon-linkedin:hover {
     color: #2D6CA2;
+}
+.block-contact {
+    position: fixed;
+    top:10px;
+    right:10px;
+}
+.block-contact a {
+    margin-left: 20px;
+}
+.icon-hand-up {
+    font-size: 18px;
+    position: absolute;
+    top: 50px;
+    left: 26px;
+    opacity: 0;
+    -webkit-animation: handup 10s infinite;
+    animation:         handup 10s infinite;
+}
+@keyframes handup {
+    0% {
+        opacity: 0;
+    }
+    5% {
+         opacity: 0;
+    }
+    10% {
+        top: 50px;
+    }
+    11% {
+        top: 40px;
+    }
+    12% {
+        top: 50px;
+    }
+    13% {
+        top: 40px;
+    }
+    14% {
+        top: 40px;
+    }
+    14% {
+        top: 50px;
+    }
+    20% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes handup {
+    0% {
+        opacity: 0;
+    }
+    5% {
+        opacity: 0;
+    }
+    10% {
+        top: 50px;
+    }
+    11% {
+        top: 40px;
+    }
+    12% {
+        top: 50px;
+    }
+    13% {
+        top: 40px;
+    }
+    14% {
+        top: 40px;
+    }
+    14% {
+        top: 50px;
+    }
+    20% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.phone-number {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    margin-left: 6px;
 }
 blockquote {
     font-size: 14px;
