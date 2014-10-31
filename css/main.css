@@ -5,6 +5,11 @@ body {
 .main {
     margin-top: 48px;
 }
+.contact {
+    position: fixed;
+    top:10px;
+    right:10px;
+}
 @media screen and (min-height: 600px) {
     .main {
         margin-top: 200px;
@@ -33,12 +38,25 @@ h2 {
 .block-header, .baseline, .block-nav-icons {
     margin: 20px 0;
 }
+.baseline {
+    font-size: 18px;
+}
+.block-nav-icons a {
+    margin: 20px;
+}
 .link-icon {
     text-decoration: none;
-    margin: 20px;
+    color: #d6e9c6;
 }
 .link-icon:hover {
     text-decoration: none;
+    color: #d6e9c6;
+}
+.link-icon-linkedin {
+    color: #2D6CA2;
+}
+.link-icon-linkedin:hover {
+    color: #2D6CA2;
 }
 blockquote {
     font-size: 14px;
