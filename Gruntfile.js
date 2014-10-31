@@ -33,6 +33,18 @@ module.exports = function (grunt) {
                 dest: 'dist/js/script.min.js'
             }
         },
+        cssmin: {
+            options: {
+                banner: '<%= banner %>'
+            },
+            combine: {
+                files: {
+                    'dist/css/styles.min.css': [
+                        'css/main.css'
+                    ]
+                }
+            }
+        },
         jshint: {
             options: {
                 curly: true,
@@ -97,10 +109,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-cache-bust');
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cacheBust']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'cacheBust']);
 
 };
