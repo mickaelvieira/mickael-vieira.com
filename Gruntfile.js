@@ -14,11 +14,14 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 banner: '<%= banner %>',
-                stripBanners: true
+                stripBanners: true,
+                separator: ';'
             },
             dist: {
-                src: ['lib/<%= pkg.name %>.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+                src: [
+                    'js/contact.js'
+                ],
+                dest: 'dist/js/script.js'
             }
         },
         uglify: {
@@ -27,7 +30,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: '<%= concat.dist.dest %>',
-                dest: 'dist/<%= pkg.name %>.min.js'
+                dest: 'dist/js/script.min.js'
             }
         },
         jshint: {
@@ -50,7 +53,7 @@ module.exports = function (grunt) {
                 src: 'Gruntfile.js'
             },
             lib_test: {
-                src: ['lib/**/*.js', 'test/**/*.js']
+                src: ['js/**/*.js']
             }
         },
         jasmine: {
@@ -98,6 +101,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-cache-bust');
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'jasmine', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cacheBust']);
 
 };
