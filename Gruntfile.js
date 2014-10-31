@@ -70,6 +70,22 @@ module.exports = function (grunt) {
                 files: '<%= jshint.lib_test.src %>',
                 tasks: ['jshint:lib_test', 'qunit']
             }
+        },
+        cacheBust: {
+            options: {
+                encoding: 'utf8',
+                algorithm: 'sha1',
+                length: 16,
+                rename: false,
+                ignorePatterns: [
+                    'components'
+                ]
+            },
+            assets: {
+                files: [{
+                    src: ['index.html']
+                }]
+            }
         }
     });
 
@@ -79,6 +95,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-cache-bust');
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'jasmine', 'concat', 'uglify']);

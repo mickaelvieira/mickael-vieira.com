@@ -1,23 +1,24 @@
 {
-    "name": "mickael-vieira.com",
-    "version": "0.0.1",
-    "description": "My Personal website",
-    "keywords": "",
-    "license": "",
-    "main": "js/app.js",
-    "author": {
-        "name": "Mickael Vieira",
-        "email": "contact@mickael-vieira.com"
-    },
-    "engines": {
-        "node": ">= 0.10.0"
-    },
-    "devDependencies": {
-        "grunt": "~0.4.5",
-        "grunt-contrib-jshint": "~0.10.0",
-        "grunt-contrib-watch": "~0.6.1",
-        "grunt-contrib-jasmine": "^0.8.0",
-        "grunt-contrib-concat": "~0.4.0",
-        "grunt-contrib-uglify": "~0.5.0"
-    }
+  "name": "mickael-vieira.com",
+  "version": "0.0.1",
+  "description": "My Personal website",
+  "keywords": "",
+  "license": "",
+  "main": "js/app.js",
+  "author": {
+    "name": "Mickael Vieira",
+    "email": "contact@mickael-vieira.com"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-cache-bust": "^0.4.4",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-jasmine": "^0.8.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-watch": "~0.6.1"
+  }
 }
