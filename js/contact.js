@@ -11,8 +11,6 @@
 
     Contact.prototype.constructor = Contact;
 
-    Contact.prototype.built = false;
-
     Contact.prototype.parts = [
         "\u006d", "\u0061", "\u0069", "\u006c", "\u0074", "\u006f", "\u003a",
         "\u0063", "\u006f", "\u006e", "\u0074", "\u0061", "\u0063", "\u0074",
@@ -21,14 +19,12 @@
         "\u0061", "\u002e", "\u0063", "\u006f", "\u006d"
     ];
     Contact.prototype.addListeners = function() {
-        document.addEventListener('mousemove', this.build.bind(this));
+        this.handler = this.build.bind(this);
+        document.addEventListener('mousemove', this.handler);
     };
     Contact.prototype.build = function() {
-
-        if (!this.built) {
-            this.link.href = this.parts.join("");
-            this.built = true;
-        }
+        this.link.href = this.parts.join("");
+        document.removeEventListener('mousemove', this.handler);
     };
 
     document.addEventListener("DOMContentLoaded", function() {
