@@ -33,6 +33,14 @@ module.exports = function (grunt) {
                 dest: 'dist/js/script.min.js'
             }
         },
+        autoprefixer: {
+            options: {
+                browsers: ['last 3 versions', 'ie >= 9']
+            },
+            no_dest_multiple: {
+                src: 'css/main.css'
+            }
+        },
         cssmin: {
             options: {
                 banner: '<%= banner %>'
@@ -108,7 +116,6 @@ module.exports = function (grunt) {
         }
     });
 
-    // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
@@ -116,9 +123,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-cache-bust');
+    grunt.loadNpmTasks('grunt-autoprefixer');
 
-    // Default task.
-    grunt.registerTask('buildcss', ['cssmin', 'cacheBust']);
+    grunt.registerTask('buildcss', ['autoprefixer', 'cssmin', 'cacheBust']);
     grunt.registerTask('buildjs', ['jshint:js', 'concat', 'uglify', 'cacheBust']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'cacheBust']);
 

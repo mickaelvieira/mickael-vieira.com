@@ -78,42 +78,6 @@ h2 {
     -webkit-animation: handup 10s infinite;
     animation:         handup 10s infinite;
 }
-@keyframes handup {
-    0% {
-        opacity: 0;
-    }
-    5% {
-         opacity: 0;
-    }
-    10% {
-        top: 50px;
-    }
-    11% {
-        top: 40px;
-    }
-    12% {
-        top: 50px;
-    }
-    13% {
-        top: 40px;
-    }
-    14% {
-        top: 40px;
-    }
-    14% {
-        top: 50px;
-    }
-    20% {
-        opacity: 1;
-    }
-    25% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
 @-webkit-keyframes handup {
     0% {
         opacity: 0;
@@ -149,6 +113,42 @@ h2 {
         opacity: 0;
     }
 }
+@keyframes handup {
+    0% {
+        opacity: 0;
+    }
+    5% {
+        opacity: 0;
+    }
+    10% {
+        top: 50px;
+    }
+    11% {
+        top: 40px;
+    }
+    12% {
+        top: 50px;
+    }
+    13% {
+        top: 40px;
+    }
+    14% {
+        top: 40px;
+    }
+    14% {
+        top: 50px;
+    }
+    20% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 .phone-number {
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 400;
