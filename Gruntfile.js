@@ -37,8 +37,12 @@ module.exports = function (grunt) {
             options: {
                 browsers: ['last 3 versions', 'ie >= 9']
             },
-            no_dest_multiple: {
-                src: 'css/main.css'
+            files: {
+                expand: true,
+                flatter: true,
+                cwd: 'css/',
+                src: '*.css',
+                dest: 'dist/css/prefixed/'
             }
         },
         cssmin: {
@@ -48,7 +52,7 @@ module.exports = function (grunt) {
             combine: {
                 files: {
                     'dist/css/styles.min.css': [
-                        'css/main.css'
+                        '<%= autoprefixer.files.dest %>*.css'
                     ]
                 }
             }
@@ -127,6 +131,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('buildcss', ['autoprefixer', 'cssmin', 'cacheBust']);
     grunt.registerTask('buildjs', ['jshint:js', 'concat', 'uglify', 'cacheBust']);
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'cacheBust']);
-
+    grunt.registerTask('default', ['autoprefixer', 'cssmin', 'jshint:js', 'concat', 'uglify', 'cacheBust']);
 };
