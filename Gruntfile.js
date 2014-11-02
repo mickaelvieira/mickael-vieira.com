@@ -19,7 +19,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
-                    'js/contact.js'
+                    'js/**/*.js'
                 ],
                 dest: 'dist/js/script.js'
             }
@@ -64,7 +64,7 @@ module.exports = function (grunt) {
             gruntfile: {
                 src: 'Gruntfile.js'
             },
-            lib_test: {
+            js: {
                 src: ['js/**/*.js']
             }
         },
@@ -81,9 +81,13 @@ module.exports = function (grunt) {
                 files: '<%= jshint.gruntfile.src %>',
                 tasks: ['jshint:gruntfile']
             },
-            lib_test: {
-                files: '<%= jshint.lib_test.src %>',
-                tasks: ['jshint:lib_test', 'qunit']
+            css: {
+               files: 'css/**/*.css',
+                tasks: ['buildcss']
+            },
+            js: {
+                files: '<%= concat.dist.src %>',
+                tasks: ['buildjs']
             }
         },
         cacheBust: {
@@ -114,6 +118,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-cache-bust');
 
     // Default task.
+    grunt.registerTask('buildcss', ['cssmin', 'cacheBust']);
+    grunt.registerTask('buildjs', ['jshint:js', 'concat', 'uglify', 'cacheBust']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'cacheBust']);
 
 };
