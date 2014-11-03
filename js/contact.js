@@ -3,10 +3,10 @@
     "use strict";
 
     var Contact = function () {
-
-        this.link  = document.querySelector('.link-icon-contact');
-
-        this.addListeners();
+        this.link = document.querySelector('.link-icon-contact');
+        if (this.link) {
+            this.addListeners();
+        }
     };
 
     Contact.prototype.constructor = Contact;
@@ -23,9 +23,14 @@
         document.addEventListener('mousemove', this.handler);
     };
     Contact.prototype.build = function() {
-        this.link.href = this.parts.join("");
+        this.link.href = this.geHypertextReference();
         document.removeEventListener('mousemove', this.handler);
     };
+    Contact.prototype.geHypertextReference = function() {
+        return this.parts.join("");
+    };
+
+    window.Contact = Contact;
 
     document.addEventListener("DOMContentLoaded", function() {
         window.contact = new Contact();
