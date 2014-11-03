@@ -71,6 +71,7 @@ module.exports = function (grunt) {
                 boss: true,
                 eqnull: true,
                 browser: true,
+                devel: true,
                 globals: {}
             },
             gruntfile: {
@@ -81,8 +82,8 @@ module.exports = function (grunt) {
             }
         },
         jasmine: {
-            siapi: {
-                src: 'js/**/*.js',
+            suite: {
+                src: 'dist/js/**/*.js',
                 options: {
                     specs: 'spec/*Spec.js'
                 }
@@ -98,7 +99,7 @@ module.exports = function (grunt) {
                 tasks: ['buildcss']
             },
             js: {
-                files: '<%= concat.dist.src %>',
+                files: ['<%= concat.dist.src %>', '<%= jasmine.suite.options.specs %>'],
                 tasks: ['buildjs']
             }
         },
@@ -130,6 +131,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-autoprefixer');
 
     grunt.registerTask('buildcss', ['autoprefixer', 'cssmin', 'cacheBust']);
-    grunt.registerTask('buildjs', ['jshint:js', 'concat', 'uglify', 'cacheBust']);
-    grunt.registerTask('default', ['autoprefixer', 'cssmin', 'jshint:js', 'concat', 'uglify', 'cacheBust']);
+    grunt.registerTask('buildjs', ['jshint:js', 'concat', 'uglify', 'jasmine', 'cacheBust']);
+    grunt.registerTask('default', ['autoprefixer', 'cssmin', 'jshint:js', 'concat', 'uglify', 'jasmine', 'cacheBust']);
 };
