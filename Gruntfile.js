@@ -78,7 +78,7 @@ module.exports = function (grunt) {
         },
         jasmine: {
             js: {
-                src: 'dist/js/**/*.js',
+                src: 'dist/js/combined.js',
                 options: {
                     specs: 'spec/*Spec.js'
                 }
