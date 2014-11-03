@@ -13,15 +13,11 @@ module.exports = function (grunt) {
 
         concat: {
             js: {
-                src: [
-                    'js/**/*.js'
-                ],
+                src: 'js/**/*.js',
                 dest: 'dist/js/combined.js'
             },
             css: {
-                src: [
-                    'css/**/*.css'
-                ],
+                src: 'css/**/*.css',
                 dest: 'dist/css/combined.css'
             }
         },
@@ -36,11 +32,14 @@ module.exports = function (grunt) {
         },
         autoprefixer: {
             options: {
-                browsers: ['last 3 versions', 'ie >= 9']
+                browsers: [
+                    'last 3 versions',
+                    'ie >= 9'
+                ]
             },
             css: {
-                src: 'dist/css/combined.css',
-                dest: 'dist/css/combined.css'
+                src: '<%= concat.css.dest %>',
+                dest: '<%= concat.css.dest %>'
             }
         },
         cssmin: {
@@ -78,7 +77,7 @@ module.exports = function (grunt) {
         },
         jasmine: {
             js: {
-                src: 'dist/js/combined.js',
+                src: '<%= uglify.js.dest %>',
                 options: {
                     specs: 'spec/*Spec.js'
                 }
@@ -109,12 +108,12 @@ module.exports = function (grunt) {
                 ]
             },
             assets: {
-                files: [{
+                files: {
                     src: [
                         'index.html',
                         'cv.html'
                     ]
-                }]
+                }
             }
         }
     });
