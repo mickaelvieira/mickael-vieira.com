@@ -12,49 +12,47 @@ module.exports = function (grunt) {
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 
         concat: {
-            options: {
-                banner: '<%= banner %>',
-                stripBanners: true,
-                separator: ';'
-            },
-            dist: {
+            js: {
                 src: [
                     'js/**/*.js'
                 ],
-                dest: 'dist/js/script.js'
+                dest: 'dist/js/combined.js'
+            },
+            css: {
+                src: [
+                    'css/**/*.css'
+                ],
+                dest: 'dist/css/combined.css'
             }
         },
         uglify: {
             options: {
                 banner: '<%= banner %>'
             },
-            dist: {
-                src: '<%= concat.dist.dest %>',
-                dest: 'dist/js/script.min.js'
+            js: {
+                src: '<%= concat.js.dest %>',
+                dest: 'dist/js/combined.min.js'
             }
         },
         autoprefixer: {
             options: {
                 browsers: ['last 3 versions', 'ie >= 9']
             },
-            files: {
+            css: {
                 expand: true,
                 flatter: true,
                 cwd: 'css/',
                 src: '*.css',
-                dest: 'dist/css/prefixed/'
+                dest: 'dist/css/'
             }
         },
         cssmin: {
             options: {
                 banner: '<%= banner %>'
             },
-            combine: {
-                files: {
-                    'dist/css/styles.min.css': [
-                        '<%= autoprefixer.files.dest %>*.css'
-                    ]
-                }
+            css: {
+                src: '<%= concat.css.dest %>',
+                dest: 'dist/css/combined.min.css'
             }
         },
         jshint: {
@@ -82,7 +80,7 @@ module.exports = function (grunt) {
             }
         },
         jasmine: {
-            suite: {
+            js: {
                 src: 'dist/js/**/*.js',
                 options: {
                     specs: 'spec/*Spec.js'
@@ -99,7 +97,7 @@ module.exports = function (grunt) {
                 tasks: ['buildcss']
             },
             js: {
-                files: ['<%= concat.dist.src %>', '<%= jasmine.suite.options.specs %>'],
+                files: ['<%= concat.dist.src %>', '<%= jasmine.js.options.specs %>'],
                 tasks: ['buildjs']
             }
         },
@@ -130,7 +128,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-cache-bust');
     grunt.loadNpmTasks('grunt-autoprefixer');
 
-    grunt.registerTask('buildcss', ['autoprefixer', 'cssmin', 'cacheBust']);
-    grunt.registerTask('buildjs', ['jshint:js', 'concat', 'uglify', 'jasmine', 'cacheBust']);
-    grunt.registerTask('default', ['autoprefixer', 'cssmin', 'jshint:js', 'concat', 'uglify', 'jasmine', 'cacheBust']);
+    grunt.registerTask('buildcss', ['autoprefixer:css', 'concat:css', 'cssmin:css']);
+    grunt.registerTask('buildjs', ['jshint:js', 'concat:js', 'uglify:js', 'jasmine:js']);
+    grunt.registerTask('default', ['buildcss', 'buildjs', 'cacheBust']);
 };
