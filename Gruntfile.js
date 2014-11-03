@@ -94,7 +94,7 @@ module.exports = function (grunt) {
                 tasks: ['buildcss']
             },
             js: {
-                files: ['<%= concat.dist.src %>', '<%= jasmine.js.options.specs %>'],
+                files: ['<%= concat.js.src %>', '<%= jasmine.js.options.specs %>'],
                 tasks: ['buildjs']
             }
         },
@@ -110,7 +110,10 @@ module.exports = function (grunt) {
             },
             assets: {
                 files: [{
-                    src: ['index.html']
+                    src: [
+                        'index.html',
+                        'cv.html'
+                    ]
                 }]
             }
         }
