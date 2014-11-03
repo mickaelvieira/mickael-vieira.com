@@ -39,11 +39,8 @@ module.exports = function (grunt) {
                 browsers: ['last 3 versions', 'ie >= 9']
             },
             css: {
-                expand: true,
-                flatter: true,
-                cwd: 'css/',
-                src: '*.css',
-                dest: 'dist/css/'
+                src: 'dist/css/combined.css',
+                dest: 'dist/css/combined.css'
             }
         },
         cssmin: {
@@ -128,7 +125,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-cache-bust');
     grunt.loadNpmTasks('grunt-autoprefixer');
 
-    grunt.registerTask('buildcss', ['autoprefixer:css', 'concat:css', 'cssmin:css']);
+    grunt.registerTask('buildcss', ['concat:css', 'autoprefixer:css', 'cssmin:css']);
     grunt.registerTask('buildjs', ['jshint:js', 'concat:js', 'uglify:js', 'jasmine:js']);
     grunt.registerTask('default', ['buildcss', 'buildjs', 'cacheBust']);
 };
