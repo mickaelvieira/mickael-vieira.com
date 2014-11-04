@@ -2,6 +2,9 @@ body {
     color: #D6E9C6;
     background-color: #101010;
 }
+.page-break {
+    display: none;
+}
 .main {
     margin-top: 48px;
 }
@@ -10,18 +13,23 @@ body {
         margin-top: 200px;
     }
 }
-h1, h2, .subtitle {
+h1, h2, h3, h4, .subtitle {
     font-family: 'Roboto Condensed', sans-serif;
 }
 h1 {
     color: #d6e9c6;
     font-size: 56px;
-    font-weight: 400;
 }
 h2 {
     color: #2d6ca2;
-    font-size: 56px;
-    font-weight: 300;
+}
+a {
+    color: #2d6ca2;
+    text-decoration: underline;
+}
+a:hover {
+    color: #2d6ca2;
+    text-decoration: none;
 }
 ::-moz-selection {
     background: #2d6ca2;
@@ -35,7 +43,6 @@ h2 {
 }
 .subtitle {
     color: #2d6ca2;
-    font-size: 56px;
     font-weight: 300;
 }
 .block-header, .baseline, .block-nav-icons {
@@ -68,6 +75,9 @@ h2 {
 }
 .block-contact a {
     margin-left: 20px;
+}
+.link-icon-contact {
+    display: none;
 }
 .icon-hand-up {
     font-size: 18px;
@@ -134,4 +144,33 @@ blockquote:before {
     margin-top: -20px;
     margin-right: 8px;
     height: 30px;
+}
+.block-footer{
+    position: absolute;
+    width: 100%;
+}
+.content-footer {
+    margin: 0 15px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+@media print {
+    body {
+        background-color: #fff;
+        color: #000;
+    }
+    h1, h2, h3, h4 {
+        color: #000;
+    }
+    h3 a, h3 a:hover {
+        text-decoration: none;
+        color: #000
+    }
+    .subtitle {
+        color: #5e5e5e;
+    }
+    .page-break {
+        display: block;
+        page-break-before: always;
+    }
 }

@@ -3,9 +3,15 @@
     "use strict";
 
     var Contact = function () {
-        this.link = document.querySelector('.link-icon-contact');
-        if (this.link) {
-            this.addListeners();
+
+        if (document.querySelector &&
+            document.addEventListener) {
+
+            this.link = document.querySelector('.link-icon-contact');
+            if (this.link) {
+                this.showLink();
+                this.addListeners();
+            }
         }
     };
 
@@ -18,6 +24,9 @@
         "\u006c", "\u002d", "\u0076", "\u0069", "\u0065", "\u0069", "\u0072",
         "\u0061", "\u002e", "\u0063", "\u006f", "\u006d"
     ];
+    Contact.prototype.showLink = function() {
+        this.link.style.display = 'inline';
+    };
     Contact.prototype.addListeners = function() {
         this.handler = this.build.bind(this);
         document.addEventListener('mousemove', this.handler);
@@ -31,9 +40,6 @@
     };
 
     window.Contact = Contact;
-
-    document.addEventListener("DOMContentLoaded", function() {
-        window.contact = new Contact();
-    });
+    window.contact = new Contact();
 
 }(window, document));
