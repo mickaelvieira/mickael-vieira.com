@@ -12,13 +12,15 @@ module.exports = function (grunt) {
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 
         concat: {
-            js: {
-                src: 'js/**/*.js',
-                dest: 'dist/js/combined.js'
-            },
             css: {
                 src: 'css/**/*.css',
                 dest: 'dist/css/combined.css'
+            }
+        },
+        browserify: {
+            js: {
+                src: 'js/main.js',
+                dest: 'dist/js/combined.js'
             }
         },
         uglify: {
@@ -26,7 +28,7 @@ module.exports = function (grunt) {
                 banner: '<%= banner %>'
             },
             js: {
-                src: '<%= concat.js.dest %>',
+                src: '<%= browserify.js.dest %>',
                 dest: 'dist/js/combined.min.js'
             }
         },
@@ -66,6 +68,8 @@ module.exports = function (grunt) {
                 eqnull: true,
                 browser: true,
                 devel: true,
+                node: true,
+                globalstrict: true,
                 globals: {}
             },
             gruntfile: {
@@ -126,8 +130,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-cache-bust');
     grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-browserify');
 
     grunt.registerTask('buildcss', ['concat:css', 'autoprefixer:css', 'cssmin:css']);
-    grunt.registerTask('buildjs', ['jshint:js', 'concat:js', 'uglify:js', 'jasmine:js']);
+    grunt.registerTask('buildjs', ['jshint:js', 'browserify', 'uglify:js', 'jasmine:js']);
     grunt.registerTask('default', ['buildcss', 'buildjs', 'cacheBust']);
 };
