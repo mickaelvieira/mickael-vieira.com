@@ -97,7 +97,7 @@ module.exports = function (grunt) {
                 tasks: ['buildcss']
             },
             js: {
-                files: ['<%= concat.js.src %>', '<%= jasmine.js.options.specs %>'],
+                files: ['<%= browserify.js.src %>', '<%= jasmine.js.options.specs %>'],
                 tasks: ['buildjs']
             }
         },
