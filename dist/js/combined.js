@@ -69,7 +69,7 @@ Footer.prototype.getNewYPosition = function() {
     return this.getViewportHeight() - this.getFooterHeight();
 };
 Footer.prototype.getViewportHeight = function() {
-    return window.innerHeight - window.scrollY;
+    return window.innerHeight;
 };
 Footer.prototype.getFooterHeight = function() {
     return this.footer.offsetHeight;

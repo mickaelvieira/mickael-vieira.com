@@ -1,5 +1,6 @@
-/*global module:false*/
 module.exports = function (grunt) {
+
+    "use strict";
 
     grunt.initConfig({
 
@@ -97,7 +98,7 @@ module.exports = function (grunt) {
                 tasks: ['buildcss']
             },
             js: {
-                files: ['<%= browserify.js.src %>', '<%= jasmine.js.options.specs %>'],
+                files: ['js/**/*.js', '<%= jasmine.js.options.specs %>'],
                 tasks: ['buildjs']
             }
         },
