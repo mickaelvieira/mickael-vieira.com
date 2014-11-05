@@ -44,6 +44,7 @@ a:hover {
 .subtitle {
     color: #2d6ca2;
     font-weight: 300;
+    font-size: 56px;
 }
 .block-header, .baseline, .block-nav-icons {
     margin: 20px 0;
