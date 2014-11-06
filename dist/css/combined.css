@@ -13,9 +13,31 @@ body {
         margin-top: 200px;
     }
 }
-h1, h2, h3, h4, .subtitle {
-    font-family: 'Roboto Condensed', sans-serif;
+
+.wf-loading h1,
+.wf-loading h2,
+.wf-loading h3,
+.wf-loading h4,
+.wf-loading .subtitle,
+.wf-loading .phone-number {
+    visibility: hidden;
 }
+.wf-active h1,
+.wf-inactive h1,
+.wf-active h2,
+.wf-inactive h2,
+.wf-active h3,
+.wf-inactive h3,
+.wf-active h4,
+.wf-inactive h4,
+.wf-active .subtitle,
+.wf-inactive .subtitle,
+.wf-active .phone-number,
+.wf-inactive .phone-number {
+    font-family: 'Roboto Condensed', sans-serif;
+    visibility: visible;
+}
+
 h1 {
     color: #d6e9c6;
     font-size: 56px;
@@ -160,7 +182,6 @@ a:hover {
     }
 }
 .phone-number {
-    font-family: 'Roboto Condensed', sans-serif;
     font-weight: 400;
     font-size: 24px;
     margin-left: 6px;
