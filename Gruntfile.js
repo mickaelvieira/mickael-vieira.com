@@ -95,11 +95,11 @@ module.exports = function (grunt) {
             },
             css: {
                 files: 'css/**/*.css',
-                tasks: ['buildcss']
+                tasks: ['buildcss', 'cacheBust']
             },
             js: {
                 files: ['js/**/*.js', '<%= jasmine.js.options.specs %>'],
-                tasks: ['buildjs']
+                tasks: ['buildjs', 'cacheBust']
             }
         },
         cacheBust: {
