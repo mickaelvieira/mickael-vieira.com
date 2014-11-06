@@ -16,8 +16,6 @@ var Footer = function () {
     }
 };
 
-Footer.prototype.constructor = Footer;
-
 Footer.prototype.addListeners = function() {
     window.addEventListener('resize', this.adjust.bind(this));
 };

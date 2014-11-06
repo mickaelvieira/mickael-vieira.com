@@ -14,8 +14,6 @@ var Contact = function () {
     }
 };
 
-Contact.prototype.constructor = Contact;
-
 Contact.prototype.parts = [
     "\u006d", "\u0061", "\u0069", "\u006c", "\u0074", "\u006f", "\u003a",
     "\u0063", "\u006f", "\u006e", "\u0074", "\u0061", "\u0063", "\u0074",
