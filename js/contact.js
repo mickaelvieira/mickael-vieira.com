@@ -6,11 +6,7 @@ var Contact = function () {
     if (document.querySelector &&
         document.addEventListener) {
 
-        this.link = document.querySelector('.link-icon-contact');
-        if (this.link) {
-            this.showLink();
-            this.addListeners();
-        }
+        this.init();
     }
 };
 
@@ -21,6 +17,18 @@ Contact.prototype.parts = [
     "\u006c", "\u002d", "\u0076", "\u0069", "\u0065", "\u0069", "\u0072",
     "\u0061", "\u002e", "\u0063", "\u006f", "\u006d"
 ];
+Contact.prototype.init = function() {
+
+    this.getDOMElements();
+
+    if (this.link) {
+        this.showLink();
+        this.addListeners();
+    }
+};
+Contact.prototype.getDOMElements = function() {
+    this.link = document.querySelector('.link-icon-contact');
+};
 Contact.prototype.showLink = function() {
     this.link.style.display = 'inline';
 };

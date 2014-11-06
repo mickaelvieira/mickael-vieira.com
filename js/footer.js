@@ -6,16 +6,23 @@ var Footer = function () {
     if (document.querySelector &&
         document.addEventListener) {
 
-        this.body = document.body;
-        this.html = document.documentElement;
-        this.footer = document.querySelector('.block-footer');
-        if (this.footer) {
-            this.adjust();
-            this.addListeners();
-        }
+        this.init();
     }
 };
+Footer.prototype.init = function() {
 
+    this.getDOMElements();
+
+    if (this.footer) {
+        this.adjust();
+        this.addListeners();
+    }
+};
+Footer.prototype.getDOMElements = function() {
+    this.body   = document.body;
+    this.html   = document.documentElement;
+    this.footer = document.querySelector('.block-footer');
+};
 Footer.prototype.addListeners = function() {
     window.addEventListener('resize', this.adjust.bind(this));
 };
