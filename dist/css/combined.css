@@ -106,7 +106,7 @@ a:hover {
     font-size: 18px;
     position: absolute;
     top: 50px;
-    left: 282px;
+    left: 285px;
     opacity: 0;
     -webkit-animation: handup 10s infinite;
             animation: handup 10s infinite;
