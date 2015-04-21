@@ -6,11 +6,11 @@ body {
     display: none;
 }
 .main {
-    margin-top: 48px;
+    margin-top: 124px;
 }
 @media screen and (min-height: 650px) {
     .main {
-        margin-top: 200px;
+        margin-top: 252px;
     }
 }
 
