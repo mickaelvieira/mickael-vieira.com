@@ -85,10 +85,9 @@ a:hover {
     text-decoration: none;
     color: #d6e9c6;
 }
-.link-icon-linkedin {
-    color: #2D6CA2;
-}
-.link-icon-linkedin:hover {
+
+.link-icon-blue,
+.link-icon-blue:hover {
     color: #2D6CA2;
 }
 .block-contact {
@@ -106,7 +105,7 @@ a:hover {
     font-size: 18px;
     position: absolute;
     top: 50px;
-    left: 285px;
+    right: 4px;
     opacity: 0;
     -webkit-animation: handup 10s infinite;
             animation: handup 10s infinite;
