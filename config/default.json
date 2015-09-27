@@ -1,0 +1,27 @@
+{
+    "paths": {
+        "base": "public_html/",
+        "scripts": {
+            "src": "js/",
+            "dest": "dist/js/"
+        },
+        "styles": {
+            "src": "scss/",
+            "dest": "dist/css/"
+        },
+        "dist": "dist/"
+    },
+    "karma": {
+      "singleRun": true,
+      "autoWatch": false,
+      "basePath": "./"
+    },
+    "gulp" : {
+      "browserify" : {
+        "external" : []
+      },
+      "uglify": {
+        "active": true
+      }
+    }
+}

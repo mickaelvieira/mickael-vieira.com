@@ -1,5 +1,5 @@
 
-"use strict";
+'use strict';
 
 var Footer = function () {
 
@@ -19,15 +19,15 @@ Footer.prototype.init = function() {
     }
 };
 Footer.prototype.getDOMElements = function() {
-    this.body   = document.body;
-    this.html   = document.documentElement;
+    this.body = document.body;
+    this.html = document.documentElement;
     this.footer = document.querySelector('.block-footer');
 };
 Footer.prototype.addListeners = function() {
     window.addEventListener('resize', this.adjust.bind(this));
 };
 Footer.prototype.adjust = function() {
-    this.footer.style.top = this.getNewYPosition() + "px";
+    this.footer.style.top = this.getNewYPosition() + 'px';
 };
 Footer.prototype.getNewYPosition = function() {
     return this.getViewportHeight() - this.getFooterHeight();
@@ -45,4 +45,4 @@ Footer.prototype.getFooterHeight = function() {
     return this.footer.offsetHeight;
 };
 
-module.exports = Footer;
+export default Footer;

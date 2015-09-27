@@ -1,0 +1,11 @@
+{
+  "karma": {
+    "singleRun": false,
+    "autoWatch": true
+  },
+  "gulp" : {
+    "uglify": {
+      "active": false
+    }
+  }
+}
