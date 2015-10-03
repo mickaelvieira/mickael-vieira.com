@@ -31,7 +31,7 @@ fi
 declare -r src="${base}mickael-vieira.com/"
 declare -r dest="${base}mickaelvieira.github.io/"
 
-info "RUnning build"
+info "Running build"
 npm run build
 
 info "Synchronizing files"
