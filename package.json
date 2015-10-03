@@ -1,6 +1,6 @@
 {
   "name": "mickael-vieira.com",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "My Personal website",
   "keywords": [
     "Mickaël Vieira"
@@ -15,7 +15,7 @@
     "build": "NODE_ENV=production gulp",
     "test": "NODE_ENV=development gulp specs",
     "watch": "NODE_ENV=development gulp watch",
-    "postinstall": "bower install --config.interactive=false && npm run build"
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
