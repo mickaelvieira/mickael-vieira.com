@@ -17,11 +17,13 @@ gulp.task( 'css', tasks.css );
 gulp.task( 'clean', tasks.clean );
 gulp.task( 'browserify', tasks.browserify.browserify );
 gulp.task( 'watchify', tasks.browserify.watchify );
+gulp.task( 'vendor', tasks.vendor );
+gulp.task( 'fonts', tasks.fonts );
 
 //gulp.task( 'bust', [ 'shims', 'vendorjs', 'libs', 'browserify' ], tasks.bust );
 //gulp.task( 'assets', [ 'shims', 'vendorjs', 'libs', 'browserify', 'css', 'bust' ] );
 
-gulp.task( 'build', [ 'css', 'browserify' ] );
+gulp.task( 'build', [ 'css', 'browserify', 'vendor', 'fonts' ] );
 gulp.task( 'default', [ 'clean', 'build' ]);
 
 gulp.task( 'watch', [ 'watchify' ], tasks.watch );

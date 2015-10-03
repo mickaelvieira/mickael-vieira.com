@@ -9,6 +9,9 @@
             "src": "scss/",
             "dest": "dist/css/"
         },
+        "fonts": {
+          "dest": "dist/fonts/"
+        },
         "dist": "dist/"
     },
     "karma": {
