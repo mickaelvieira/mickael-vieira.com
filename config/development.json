@@ -1,6 +1,6 @@
 {
   "karma": {
-    "singleRun": false,
+    "singleRun": true,
     "autoWatch": true
   },
   "gulp" : {

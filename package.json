@@ -14,6 +14,7 @@
   "scripts": {
     "build": "NODE_ENV=production gulp",
     "test": "NODE_ENV=development gulp specs",
+    "lint": "NODE_ENV=development gulp eslint",
     "watch": "NODE_ENV=development gulp watch",
     "postinstall": "npm run build"
   },
