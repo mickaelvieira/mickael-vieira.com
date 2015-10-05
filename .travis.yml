@@ -1,3 +1,6 @@
+sudo: false
+
+
 language: node_js
 node_js:
   - "0.12"
@@ -8,3 +11,8 @@ install:
 script:
   - npm run lint
   - npm test
+
+cache:
+    directories:
+        node_modules
+
