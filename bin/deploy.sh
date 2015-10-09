@@ -28,8 +28,8 @@ if [[ -z "${base}" ]]; then
     exit 1
 fi
 
-declare -r src="${base}mickael-vieira.com/"
-declare -r dest="${base}mickaelvieira.github.io/"
+declare -r src="${base}/mickael-vieira.com/"
+declare -r dest="${base}/mickaelvieira.github.io/"
 
 info "Running build"
 npm run build
@@ -44,7 +44,6 @@ rsync --verbose \
         --delete-before \
         --include="index.html" \
         --include="dist/***" \
-        --include="cv/***" \
         --exclude="*" "${src}" "${dest}"
 
 cd "${dest}"
