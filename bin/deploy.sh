@@ -62,7 +62,7 @@ build_source() {
 
     cd "${SRC}"
 
-    npm install
+    yarn install --production
 }
 
 auto_commit() {
