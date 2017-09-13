@@ -8,7 +8,7 @@ const logger = require("./middlewares/logger.js");
 
 const app = express();
 const host = "127.0.0.1";
-const port = "6001";
+const port = "8000";
 
 app.use(logger);
 app.use(csp);
