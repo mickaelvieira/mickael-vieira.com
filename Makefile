@@ -31,6 +31,7 @@ LOGGER   := logger() { printf "\x1b[32m\xE2\x87\x92 %s\x1b[0m\n" "$$1"; }
 # Resources paths ==============================================================
 # Stylesheets
 src_scss              := $(SOURCE_DIR)/scss
+src_scss_main         := $(wildcard $(addprefix $(src_scss)/,*.scss))
 src_css               := $(SOURCE_DIR)/css
 tgt_css               := $(TARGET_DIR)/css
 
@@ -146,7 +147,7 @@ ifeq ($(OS),Darwin)
 	done
 else
 	@sed -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" -i $(TARGET_DIR)/css/font-awesome.css
-	@sed -E "s/\.\.\/\.\.\/fonts/..\/fonts\/bootstrap/g" -i $(TARGET_DIR)/css/bootstrap.css
+	@sed -E "s/\.\.\/fonts/..\/fonts\/bootstrap/g" -i $(TARGET_DIR)/css/bootstrap.css
 	@for file in roboto.css roboto-condensed.css roboto-slab.css; do \
 		sed -E "s/\.\.\/\.\.\/fonts/..\/fonts\/roboto/g" -i "$(TARGET_DIR)/css/$$file"; \
 	done
@@ -189,7 +190,7 @@ $(tgt_bootstrap):
 
 # Targets ======================================================================
 # Stylesheets
-$(tgt_css)/styles.css: $(src_scss)/**/*.scss | $(tgt_css)
+$(tgt_css)/styles.css: $(src_scss_main) | $(tgt_css)
 	$(SASS) $(src_scss)/styles.scss:$@
 
 # Javascripts
