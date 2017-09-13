@@ -1,16 +1,15 @@
-
-import Contact from '../js/contact';
+import Contact from "../public/js/contact";
 
 describe("Contact Module", function() {
+  var contact;
 
-    var contact;
+  beforeEach(function() {
+    contact = new Contact();
+  });
 
-    beforeEach(function() {
-        contact = new Contact();
-    });
-
-    it("should return the hypertext reference", function() {
-        expect(contact.geHypertextReference()).toEqual('mailto:contact@mickael-vieira.com');
-    });
+  it("should return the hypertext reference", function() {
+    expect(contact.geHypertextReference()).toEqual(
+      "mailto:contact@mickael-vieira.com"
+    );
+  });
 });
-

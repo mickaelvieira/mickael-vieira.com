@@ -5,37 +5,19 @@ body {
 .page-break {
     display: none;
 }
+
 .main {
     margin-top: 124px;
 }
+
 @media screen and (min-height: 650px) {
     .main {
         margin-top: 252px;
     }
 }
 
-.wf-loading h1,
-.wf-loading h2,
-.wf-loading h3,
-.wf-loading h4,
-.wf-loading .subtitle,
-.wf-loading .block-contact {
-    visibility: hidden;
-}
-.wf-active h1,
-.wf-inactive h1,
-.wf-active h2,
-.wf-inactive h2,
-.wf-active h3,
-.wf-inactive h3,
-.wf-active h4,
-.wf-inactive h4,
-.wf-active .subtitle,
-.wf-inactive .subtitle,
-.wf-active .block-contact,
-.wf-inactive .block-contact {
-    font-family: 'Roboto Condensed', sans-serif;
-    visibility: visible;
+h1, h2, h3, h4, h5 {
+    font-family: 'Roboto-Condensed', sans-serif;
 }
 
 h1 {

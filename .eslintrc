@@ -1,42 +1,15 @@
 {
-    "parser": "babel-eslint",
-    "plugins": [],
-    "env": {
-        "browser": true
+  parserOptions: {
+    ecmaVersion: 2017,
+    sourceType: "module",
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
     },
-    "ecmaFeatures": {
-        "arrowFunctions": true,
-        "binaryLiterals": true,
-        "blockBindings": true,
-        "classes": true,
-        "defaultParams": true,
-        "destructuring": true,
-        "forOf": true,
-        "generators": true,
-        "modules": true,
-        "objectLiteralComputedProperties": true,
-        "objecTliteralDuplicateProperties": true,
-        "objectLiteralShorthandMethods": true,
-        "objectLiteralShorthandProperties": true,
-        "octalLiterals": true,
-        "regexUFlag": true,
-        "regexYFlag": true,
-        "restParams": true,
-        "spread": true,
-        "superInFunctions": true,
-        "templateStrings": true,
-        "unicodeCodePointEscapes": true,
-        "globalReturn": true,
-        "jsx": true
-    },
-    "rules": {
-        "no-console": 0,
-        "no-shadow": 0,
-        "no-multi-spaces": [2, {
-            "exceptions": {"VariableDeclarator": true}
-        }],
-        "key-spacing": 0, // [2, {"align": "value"}],
-        "prefer-const": 0,
-        "quotes": [2, "single", "avoid-escape"]
-    }
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
 }

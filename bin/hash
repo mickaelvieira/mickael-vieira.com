@@ -1,0 +1,118 @@
+#!/bin/bash
+set -e -u -o pipefail
+# set -x
+
+source "$(dirname "$0")/lib.sh"
+
+hash() {
+    info "Hashing..."
+    find "${DIST_DIR}/". -type f ! -name "*.map" ! -path "*/fonts/*" -print0 | \
+      xargs -0 md5sum | \
+      awk '{ path=$2; gsub(/(\.[png|jpe?g|gif|svg|js|css]+)$/, "."$1"&", path); system(sprintf("mv -v %s %s", $2, path)) }'
+}
+
+get_hashed_files() {
+    local files=($@)
+    local reg="(^.+)\.([a-z0-9]+)\.([png|jpe?g|gif|svg|js|css]+)$"
+
+    # Generate an object containing the mapping of hashed files
+    local hashes="{"
+    if [[ ${#files[@]} -ne 0 ]]; then
+        local last="${files[*]: -1}"
+        for file in "${files[@]}"; do
+            if [[ "$file" =~ $reg ]]; then
+                local original="${BASH_REMATCH[1]}.${BASH_REMATCH[3]}"
+                local entry="\"${original/public/}\":\"${file/public/}\""
+                if [[ "$file" != "$last" ]]; then
+                    entry+=","
+                fi
+                hashes+="$entry"
+            fi
+        done
+    fi
+    hashes+="}"
+
+    echo "$hashes"
+}
+
+get_static_html() {
+    local files=("server/views/index.html")
+
+    # Calculate the version based on html files content
+    local version=$(cat "${files[@]}" | md5sum | awk '{ print $1 }')
+
+    # Generate an array containing all the html files
+    local html="["
+    if [[ "$NODE_ENV" == production ]]; then
+        if [[ ${#files[@]} -ne 0 ]]; then
+            local last="${files[*]: -1}"
+            for file in "${files[@]}"; do
+                local entry="\"${file/views/}\""
+                if echo "$file" | grep "index" > /dev/null; then
+                  entry="\"/\""
+                else
+                  entry=${entry/.html/}
+                fi
+                if [[ "$file" != "$last" ]]; then
+                    entry+=","
+                fi
+                html+="$entry"
+            done
+        fi
+    fi
+    html+="]"
+
+    echo "{\"version\":\"$version\",\"files\":$html}"
+}
+
+get_static_assets() {
+    local files=($@)
+
+    # Generate an array containing all the assets
+    local assets="["
+    if [[ ${#files[@]} -ne 0 && "$NODE_ENV" == production ]]; then
+        local last="${files[*]: -1}"
+        for file in "${files[@]}"; do
+            local entry="\"${file/public/}\""
+            if [[ "$file" != "$last" ]]; then
+                entry+=","
+            fi
+            assets+="$entry"
+        done
+    fi
+    assets+="]"
+
+    # Calculate the version based on the assets list
+    local version=$(echo -n "$assets" | md5sum | awk '{ print $1 }')
+
+    echo "{\"version\":\"$version\",\"files\":$assets}"
+}
+
+gen_cache_definition() {
+    info "Generating cache definition..."
+    local files=($(find "${DIST_DIR}/"* -type f ! -name "*.map" ! -path "*/fonts/*"))
+    local caches_json="caches.json"
+    local caches_js="${PUBLIC_DIR}/caches.js"
+
+    local hashes=$(get_hashed_files "${files[@]:-}")
+    local static_assets=$(get_static_assets "${files[@]:-}")
+    local static_html=$(get_static_html)
+
+    local json="{\"hashes\":$hashes,\"assets\":$static_assets,\"html\":$static_html}"
+    local js="var manifest=function(){\"use strict\";return$json}();"
+
+    echo -e "$json" > "$caches_json"
+    echo -e "$js" > "$caches_js"
+
+    [[ -f "$caches_json" ]] && jq . "$caches_json"
+}
+
+main() {
+    ensure_dir
+    is_install jq
+    is_install md5sum
+    [[ "$NODE_ENV" == production ]] && hash
+    gen_cache_definition
+}
+
+main

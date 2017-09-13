@@ -1,18 +1,19 @@
-sudo: false
-
+env:
+  global:
+    - MAKEFLAGS="-j 2"
 
 language: node_js
 node_js:
-  - "0.12"
-
-install:
-  - npm install
+  - "6"
+  - "7"
 
 script:
-  - npm run lint
-  - npm test
+  - make lint
+  - make test-coverage
+
+after_success:
+  - make test-coveralls
 
 cache:
-    directories:
-        node_modules
-
+  directories:
+    - "node_modules"

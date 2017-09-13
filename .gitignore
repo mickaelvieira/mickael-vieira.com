@@ -1,5 +1,6 @@
-components/
 node_modules/
-dist/
-_SpecRunner.html
+public/dist/
 npm-debug.log
+caches.json
+public/caches.js
+.sass-cache

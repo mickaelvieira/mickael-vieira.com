@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e -u -o pipefail
+# set -x
+
+source "$(dirname "$0")/lib.sh"
+
+watch() {
+    PATH="node_modules/.bin:$PATH"
+    TARGET="website"
+
+    tmux new-session -s "$TARGET" -d
+    tmux ls
+
+    tmux new-window -c "$(pwd -P)" -n "tests" "make test-watch"
+    tmux new-window -c "$(pwd -P)" -n "scripts" "rollup -c rollup.config.js --watch"
+    tmux new-window -c "$(pwd -P)" -n "styles" "sass --sourcemap=inline --watch --trace \"${PUBLIC_DIR}/scss/styles.scss:${DIST_DIR}/css/styles.css\""
+    tmux list-windows
+    tmux select-window -t "tests"
+    tmux attach-session -t "$TARGET"
+}
+
+main() {
+    ensure_dir
+    is_install sass
+    is_install tmux
+    watch
+}
+
+main "$@"
