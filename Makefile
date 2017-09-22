@@ -87,7 +87,7 @@ show:
 	@echo 'JS      :' $(tgt_js)
 
 docker-run:
-	@docker run -it -p 8000:8000 --rm -P website
+	@docker run -it -p 127.0.0.1:8020:80 --rm -P website &
 
 docker-build:
 	@bin/docker
