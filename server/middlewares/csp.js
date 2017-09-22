@@ -2,11 +2,11 @@ module.exports = function(req, res, next) {
   const values = [];
 
   values.push("default-src 'none'");
-  values.push("connect-src 'none'");
-  values.push("media-src 'none'");
-  values.push("form-action 'none'");
-  values.push("child-src 'none'");
-  values.push("frame-ancestors 'none'");
+  // values.push("connect-src 'none'");
+  // values.push("media-src 'none'");
+  // values.push("form-action 'none'");
+  // values.push("child-src 'none'");
+  // values.push("frame-ancestors 'none'");
 
   values.push("script-src 'self'");
   values.push("img-src 'self'");
