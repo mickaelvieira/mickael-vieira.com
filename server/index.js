@@ -9,7 +9,7 @@ const headers = require("./middlewares/headers.js");
 
 const app = express();
 const host = "127.0.0.1";
-const port = "80";
+const port = "8000";
 
 app.use(logger);
 app.use(csp);

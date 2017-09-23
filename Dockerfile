@@ -23,6 +23,6 @@ COPY server server
 
 RUN sed -E "s/127\.0\.0\.1/0.0.0.0/g" -i ./server/index.js
 
-EXPOSE 80
+EXPOSE 8000
 
 CMD ["node", "server/index.js"]
