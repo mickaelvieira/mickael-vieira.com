@@ -4,14 +4,13 @@ const express = require("express");
 const routing = require("./routing.js");
 const view = require("./view.js");
 const csp = require("./middlewares/csp.js");
-const logger = require("./middlewares/logger.js");
 const headers = require("./middlewares/headers.js");
-
+const morgan = require("morgan");
 const app = express();
 const host = "127.0.0.1";
 const port = "8000";
 
-app.use(logger);
+app.use(morgan("combined"));
 app.use(csp);
 app.use(headers);
 app.use(express.static("./public"));
