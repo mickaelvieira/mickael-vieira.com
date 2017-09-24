@@ -10,6 +10,15 @@ const app = express();
 const host = "127.0.0.1";
 const port = "8000";
 
+//get real ip if passed by nginx
+morgan.token("remote-addr", function(req) {
+  return (
+    req.headers["x-real-ip"] ||
+    req.headers["x-forwarded-for"] ||
+    req.connection.remoteAddress
+  );
+});
+
 app.use(morgan("combined"));
 app.use(csp);
 app.use(headers);
