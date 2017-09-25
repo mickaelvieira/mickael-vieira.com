@@ -5,6 +5,8 @@ const routing = require("./routing.js");
 const view = require("./view.js");
 const csp = require("./middlewares/csp.js");
 const headers = require("./middlewares/headers.js");
+const notFound = require("./middlewares/not-found.js");
+const errors = require("./middlewares/errors.js");
 const morgan = require("morgan");
 const app = express();
 const host = "127.0.0.1";
@@ -30,6 +32,8 @@ app.disable("x-powered-by");
 view(app);
 routing(app);
 
+app.use(notFound);
+app.use(errors);
 app.listen(port, host, function() {
   console.log(`Listening on http://${host}:${port}`);
 });
