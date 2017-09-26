@@ -104,7 +104,23 @@ gen_cache_definition() {
     echo -e "$json" > "$caches_json"
     echo -e "$js" > "$caches_js"
 
+    [[ "$NODE_ENV" == production ]] && update_service_worker_cache "$caches_js"
+
     [[ -f "$caches_json" ]] && jq . "$caches_json"
+}
+
+update_service_worker_cache() {
+    info "Updating service worker cache import..."
+    local file=$1
+    local vers=$(md5sum "${file}" | awk '{ print $1 }')
+    local reg="s/caches.js([^\"]*)/caches.js?v=${vers}/g"
+
+    if [[ "$OS_TYPE" == Darwin ]]; then
+        sed -i .bak -E "${reg}" public/sw.js
+        rm public/sw.js.bak
+    else
+        sed -E "${reg}" -i public/sw.js
+    fi
 }
 
 main() {

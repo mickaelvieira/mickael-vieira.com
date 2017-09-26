@@ -7,6 +7,7 @@ set -e -u -o pipefail
 
 declare -r PUBLIC_DIR="public"
 declare -r DIST_DIR="${PUBLIC_DIR}/dist"
+declare -r OS_TYPE=$(uname -s)
 
 info() {
     printf "\x1b[32m\xE2\x87\x92 %s\x1b[0m\n" "$1"
