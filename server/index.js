@@ -24,7 +24,14 @@ morgan.token("remote-addr", function(req) {
 app.use(morgan("combined"));
 app.use(csp);
 app.use(headers);
-app.use(express.static("./public"));
+app.use(
+  express.static("./public", {
+    etag: false,
+    maxAge: false,
+    lastModified: false
+  })
+);
+
 app.use(jsonParser({ type: "application/csp-report" }));
 app.use(jsonParser({ type: "application/json" }));
 app.disable("x-powered-by");
