@@ -22,7 +22,7 @@ morgan.token("remote-addr", function(req) {
 });
 
 app.use(morgan("combined"));
-app.use(csp);
+// app.use(csp);
 app.use(headers);
 app.use(
   express.static("./public", {
