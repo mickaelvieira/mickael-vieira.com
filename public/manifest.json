@@ -1,6 +1,6 @@
 {
   "name": "Mickael Vieira",
-  "short_name": "Mickael Vieira",
+  "short_name": "Mick",
   "description": "Mickael Vieira's Personal Website",
   "start_url": "./",
   "display": "standalone",
@@ -8,7 +8,44 @@
   "lang": "en-GB",
   "default_locale": "en",
   "manifest_version": 1,
-  "content_security_policy": "",
-  "background_color": "#fff",
-  "orientation": "portrait-primary"
+  "theme_color": "#101010",
+  "background_color": "#101010",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "dist/images/icons/16x16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "dist/images/icons/32x32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "dist/images/icons/48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "dist/images/icons/96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "dist/images/icons/152x152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "dist/images/icons/180x180.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "dist/images/icons/192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
 }
