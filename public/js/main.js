@@ -1,16 +1,7 @@
-import Contact from "./contact";
+import serviceWorker from "./service-worker";
+import contact from "./contact";
 
 (function() {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("/sw.js", { useCache: false })
-      .then(registration => {
-        console.log(`Registration succeeded. Scope is ${registration.scope}`);
-      })
-      .catch(error => {
-        console.log(`Registration failed with ${error}`);
-      });
-  }
-
-  new Contact();
+  // serviceWorker(window);
+  contact(window);
 })();

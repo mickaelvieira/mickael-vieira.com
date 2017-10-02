@@ -1,0 +1,64 @@
+header {
+  // sass-lint:disable property-sort-order no-misspelled-properties
+
+  display: grid;
+  grid-template-columns: 0% 100% 0%;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+
+  color: $header-color;
+  background-color: $header-background;
+
+  position: fixed;
+
+  width: 100%;
+
+  h1 {
+    font-size: 30px;
+    font-family: 'Roboto-Condensed';
+    font-weight: 300;
+    margin: .8rem 0 .8rem 12px;
+    color: $header-color;
+    float: left;
+    line-height: 1;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  nav {
+    float: right;
+    margin-right: 12px;
+    margin-top: 18px;
+  }
+
+  ul,
+  li {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  ul {
+    margin: 0;
+    display: inline-block;
+
+    >:first-child {
+      margin-left: 0;
+    }
+  }
+
+  li {
+    float: left;
+    margin-left: 12px;
+  }
+
+  a {
+    color: $white;
+  }
+
+  .fa {
+    font-size: 1.2em;
+  }
+}

@@ -3,7 +3,6 @@ const express = require("express");
 
 const routing = require("./routing.js");
 const view = require("./view.js");
-const csp = require("./middlewares/csp.js");
 const headers = require("./middlewares/headers.js");
 const notFound = require("./middlewares/not-found.js");
 const errors = require("./middlewares/errors.js");
@@ -12,7 +11,6 @@ const app = express();
 const host = "127.0.0.1";
 const port = "8000";
 
-//get real ip if passed by nginx
 morgan.token("remote-addr", function(req) {
   return (
     req.headers["x-real-ip"] ||
@@ -22,7 +20,6 @@ morgan.token("remote-addr", function(req) {
 });
 
 app.use(morgan("combined"));
-// app.use(csp);
 app.use(headers);
 app.use(
   express.static("./public", {

@@ -1,0 +1,106 @@
+html {
+  font-family: $native-font-family;
+  font-weight: normal;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body {
+  color: $text-color;
+  font-family: $base-font-family;
+  font-weight: $base-font-weight;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+@media only screen and (min-width: 0) {
+  html {
+    font-size: $base-font-size-small-screen;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  html {
+    font-size: $base-font-size-medium-screen;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  html {
+    font-size: $base-font-size-large-screen;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $heading-color;
+  font-family: $heading-font-family;
+  font-weight: $heading-font-weight;
+  line-height: 1.1;
+  margin: 2rem 0;
+
+  a {
+    font-weight: inherit;
+  }
+}
+
+a {
+  color: $header-background;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3.6rem;
+}
+
+h3 {
+  font-size: 3rem;
+}
+
+h4 {
+  font-size: 2.4rem;
+}
+
+h5 {
+  font-size: 2rem;
+}
+
+h6 {
+  font-size: 1.6rem;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 500;
+}
+
+small {
+  font-size: 75%;
+}
+
+dl,
+dt,
+dd {
+  margin: 0;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: .4rem;
+}

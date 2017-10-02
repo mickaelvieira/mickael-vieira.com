@@ -128,7 +128,7 @@ fmt:
 
 build:        build_dir build_css build_js build_fonts rewrite_font_paths autoprefix_css minify_css
 build_dir:    $(tgt_css) $(tgt_js) $(tgt_roboto) $(tgt_awesome) $(tgt_bootstrap)
-build_css:    $(addprefix $(tgt_css)/,styles.css)
+build_css:    $(addprefix $(tgt_css)/,styles.css normalize.css)
 build_js:     $(addprefix $(tgt_js)/,main.js)
 build_fonts:  fonts_css fonts_files
 fonts_css:    $(addprefix $(tgt_css)/,roboto.css roboto-condensed.css roboto-slab.css font-awesome.css bootstrap.css)
@@ -137,17 +137,17 @@ fonts_files:  $(tgt_roboto)/% $(tgt_awesome)/% $(tgt_bootstrap)/%
 rewrite_font_paths:
 	@$(LOGGER); logger "Rewriting fonts paths..."
 ifeq ($(OS),Darwin)
-	@sed -i .bak -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" $(TARGET_DIR)/css/font-awesome.css
-	@rm -f $(TARGET_DIR)/css/font-awesome.css.bak
-	@sed -i .bak -E "s/\.\.\/fonts/..\/fonts\/bootstrap/g" $(TARGET_DIR)/css/bootstrap.css
-	@rm -f $(TARGET_DIR)/css/bootstrap.css.bak
+	# @sed -i .bak -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" $(TARGET_DIR)/css/font-awesome.css
+	# @rm -f $(TARGET_DIR)/css/font-awesome.css.bak
+	# @sed -i .bak -E "s/\.\.\/fonts/..\/fonts\/bootstrap/g" $(TARGET_DIR)/css/bootstrap.css
+	# @rm -f $(TARGET_DIR)/css/bootstrap.css.bak
 	@for file in roboto.css roboto-condensed.css roboto-slab.css; do \
 		sed -i .bak -E "s/\.\.\/\.\.\/fonts/..\/fonts\/roboto/g" "$(TARGET_DIR)/css/$$file"; \
 		rm -f $(TARGET_DIR)/css/$$file.bak; \
 	done
 else
-	@sed -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" -i $(TARGET_DIR)/css/font-awesome.css
-	@sed -E "s/\.\.\/fonts/..\/fonts\/bootstrap/g" -i $(TARGET_DIR)/css/bootstrap.css
+	# @sed -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" -i $(TARGET_DIR)/css/font-awesome.css
+	# @sed -E "s/\.\.\/fonts/..\/fonts\/bootstrap/g" -i $(TARGET_DIR)/css/bootstrap.css
 	@for file in roboto.css roboto-condensed.css roboto-slab.css; do \
 		sed -E "s/\.\.\/\.\.\/fonts/..\/fonts\/roboto/g" -i "$(TARGET_DIR)/css/$$file"; \
 	done
@@ -192,6 +192,9 @@ $(tgt_bootstrap):
 # Stylesheets
 $(tgt_css)/styles.css: $(src_scss_main) | $(tgt_css)
 	$(SASS) $(src_scss)/styles.scss:$@
+
+$(tgt_css)/normalize.css: $(NODE_DIR)/normalize-css/normalize.css | $(tgt_css)
+	$(UGLIFY) $< > $@
 
 # Javascripts
 $(tgt_js)/main.js: $(src_js_main) | $(tgt_js)

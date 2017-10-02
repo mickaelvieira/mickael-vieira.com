@@ -1,10 +1,4 @@
-const Contact = function() {
-  if (document.querySelector && document.addEventListener) {
-    this.init();
-  }
-};
-
-Contact.prototype.parts = [
+const parts = [
   "\u006d",
   "\u0061",
   "\u0069",
@@ -39,30 +33,19 @@ Contact.prototype.parts = [
   "\u006f",
   "\u006d"
 ];
-Contact.prototype.init = function() {
-  this.getDOMElements();
 
-  if (this.link) {
-    this.showLink();
-    this.addListeners();
+export default function(window) {
+  const doc = window.document;
+  const handler = function() {
+    doc.removeEventListener("mousemove", handler);
+
+    const link = document.querySelector(".link-icon-contact");
+    if (link) {
+      link.href = parts.join("");
+    }
+  };
+
+  if (document.querySelector) {
+    doc.addEventListener("mousemove", handler);
   }
-};
-Contact.prototype.getDOMElements = function() {
-  this.link = document.querySelector(".link-icon-contact");
-};
-Contact.prototype.showLink = function() {
-  this.link.style.display = "inline";
-};
-Contact.prototype.addListeners = function() {
-  this.handler = this.build.bind(this);
-  document.addEventListener("mousemove", this.handler);
-};
-Contact.prototype.build = function() {
-  this.link.href = this.geHypertextReference();
-  document.removeEventListener("mousemove", this.handler);
-};
-Contact.prototype.geHypertextReference = function() {
-  return this.parts.join("");
-};
-
-export default Contact;
+}

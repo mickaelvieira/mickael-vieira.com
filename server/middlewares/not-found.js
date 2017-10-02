@@ -1,3 +1,3 @@
 module.exports = function(request, response, next) {
-  response.status(404).render("404.html");
+  response.status(404).render("errors/404.hbs");
 };

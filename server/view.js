@@ -7,7 +7,9 @@ module.exports = function(app) {
     return caches.hashes.hasOwnProperty(path) ? caches.hashes[path] : path;
   });
 
-  app.set("views", path.join(__dirname, "views"));
+  hbs.registerPartials(__dirname + "/views/partials");
+
+  app.set("views", __dirname + "/views/pages");
   app.set("view engine", "html");
   app.engine("html", hbs.__express);
 };

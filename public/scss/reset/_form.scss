@@ -1,0 +1,98 @@
+button,
+select,
+textarea {
+  background: transparent;
+  border: 1px solid $light-grey;
+  color: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  padding: .7rem .9rem;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .6;
+  }
+}
+
+select {
+  margin-bottom: .4rem;
+  padding: .5rem .7rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+label {
+  display: inline-block;
+
+  &.required {
+    &::after {
+      content: '*';
+      left: .2rem;
+      position: relative;
+      top: -.2rem;
+    }
+  }
+}
+
+fieldset {
+  border: 1px solid $light-grey;
+  margin-bottom: .4rem;
+}
+
+legend {
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 0 .2rem;
+}
+
+input {
+  &[type] {
+    background: transparent;
+    border: 1px solid $light-grey;
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    margin-bottom: .4rem;
+    outline: 0;
+    padding: .7rem .9rem;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &[type='checkbox'],
+  &[type='radio'] {
+    margin-right: .4rem;
+  }
+
+  &[type='button'],
+  &[type='reset'],
+  &[type='submit'] {
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: .6;
+    }
+  }
+
+  &[type='color'] {
+    height: 64px;
+    padding: .9rem;
+  }
+}
+
+.btn-link {
+  background: transparent;
+  border: 0;
+  color: $header-background;
+  display: inline-block;
+  text-decoration: underline;
+}

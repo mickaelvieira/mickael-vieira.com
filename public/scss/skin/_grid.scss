@@ -1,0 +1,10 @@
+section {
+  // sass-lint:disable property-sort-order no-misspelled-properties
+  display: grid;
+  grid-template-columns: 0% 100% 0%;
+  height: 100vh;
+}
+
+.col {
+  align-self: stretch;
+}
