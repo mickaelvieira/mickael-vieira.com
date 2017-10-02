@@ -7,6 +7,10 @@ module.exports = function(app) {
     return caches.hashes.hasOwnProperty(path) ? caches.hashes[path] : path;
   });
 
+  hbs.registerHelper("pageTitle", function(title) {
+    return title || "Micka&euml;l Vieira";
+  });
+
   hbs.registerPartials(__dirname + "/views/partials");
 
   app.set("views", __dirname + "/views/pages");

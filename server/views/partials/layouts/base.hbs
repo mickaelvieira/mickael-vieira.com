@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>
-    {{#if title}}
-      {{title}}
-    {{else}}
-      Micka&euml;l Vieira
-    {{/if}}
-    </title>
+    <title>{{ pageTitle title }}</title>
 
     <meta name="description" content="Micka&euml;l Vieira Software Engineer in London UK">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="{{assets '/dist/css/normalize.css'}}">
-    <link rel="stylesheet" href="{{assets '/dist/css/roboto.css'}}">
-    <link rel="stylesheet" href="{{assets '/dist/css/styles.css'}}">
+    <link rel="stylesheet" href="{{ assets '/dist/css/normalize.css' }}">
+    <link rel="stylesheet" href="{{ assets '/dist/css/roboto.css' }}">
+    <link rel="stylesheet" href="{{ assets '/dist/css/styles.css' }}">
 
     <script src="{{assets '/dist/js/main.js'}}" defer></script>
 </head>
