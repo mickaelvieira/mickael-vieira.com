@@ -1,24 +1,22 @@
 body {
-  background-color: $white-smoke;
+  background: $white-smoke;
 }
 
 .main {
   // sass-lint:disable property-sort-order
 
   background-color: $white;
+  // box-shadow: 0 2px 10px 2px $shadow;
+  border: 1px solid $white-smoke;
+  border-bottom: 0;
+  border-top: 0;
   padding: 89px 12px 12px;
-
-  box-shadow: 0 2px 10px 2px $shadow;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-
-  // min-height: 600px;
 
   h2 {
     font-family: 'Roboto-Condensed';
     font-size: 1.4rem;
-    margin-top: 0;
     margin-bottom: 24px;
+    margin-top: 0;
   }
 
   dt {

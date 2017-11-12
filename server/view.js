@@ -8,7 +8,7 @@ module.exports = function(app) {
   });
 
   hbs.registerHelper("pageTitle", function(title) {
-    return title || "Micka&euml;l Vieira";
+    return title || "Mickaël Vieira";
   });
 
   hbs.registerPartials(__dirname + "/views/partials");
