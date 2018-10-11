@@ -127,12 +127,12 @@ fmt:
 	$(PRETTIER) rollup.config.js
 
 build:        build_dir build_css build_js build_fonts rewrite_font_paths autoprefix_css minify_css
-build_dir:    $(tgt_css) $(tgt_js) $(tgt_roboto) $(tgt_awesome) $(tgt_bootstrap)
+build_dir:    $(tgt_css) $(tgt_js) $(tgt_roboto) $(tgt_awesome)
 build_css:    $(addprefix $(tgt_css)/,styles.css)
 build_js:     $(addprefix $(tgt_js)/,main.js)
 build_fonts:  fonts_css fonts_files
 fonts_css:    $(addprefix $(tgt_css)/,roboto.css roboto-condensed.css roboto-slab.css font-awesome.css bootstrap.css)
-fonts_files:  $(tgt_roboto)/% $(tgt_awesome)/% $(tgt_bootstrap)/%
+fonts_files:  $(tgt_roboto)/% $(tgt_awesome)/%
 
 rewrite_font_paths:
 	@$(LOGGER); logger "Rewriting fonts paths..."
@@ -185,9 +185,6 @@ $(tgt_roboto):
 $(tgt_awesome):
 	$(MKD) $(tgt_awesome)
 
-$(tgt_bootstrap):
-	$(MKD) $(tgt_bootstrap)
-
 # Targets ======================================================================
 # Stylesheets
 $(tgt_css)/styles.css: $(src_scss_main) | $(tgt_css)
@@ -218,7 +215,4 @@ $(tgt_roboto)/%: $(src_roboto_files) | $(tgt_roboto)
 	$(RSYNC) $</. $(@D)
 
 $(tgt_awesome)/%: $(src_awesome_files) | $(tgt_awesome)
-	$(RSYNC) $</. $(@D)
-
-$(tgt_bootstrap)/%: $(src_bootstrap_files) | $(tgt_bootstrap)
 	$(RSYNC) $</. $(@D)

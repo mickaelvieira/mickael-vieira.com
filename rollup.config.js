@@ -1,6 +1,6 @@
 import babel from "rollup-plugin-babel";
 import json from "rollup-plugin-json";
-import uglify from "rollup-plugin-uglify";
+import { uglify } from "rollup-plugin-uglify";
 import nodeResolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 
@@ -36,12 +36,12 @@ const globals = {};
 export default {
   input: pubDir + "/main.js",
   name: "main",
-  plugins,
-  globals,
-  external,
-  sourcemap,
   output: {
     file: distDir + "/main.js",
-    format
+    format,
+    plugins,
+    globals,
+    external,
+    sourcemap
   }
 };
