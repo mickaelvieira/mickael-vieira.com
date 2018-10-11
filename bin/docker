@@ -12,7 +12,7 @@ build_docker() {
     NODE_ENV=production make
     docker build --rm -t "${IMAGE_NAME}:${IMAGE_TAG}" .
 
-    read -erp "$(echo -e "Do you want to publish the image to \x1b[33mdockerhub\x1b[0m") [y/N] " confirm
+    read -erp "$(echo -e "Do you want to publish the image to \\x1b[33mdockerhub\\x1b[0m") [y/N] " confirm
 
     if [[ "$confirm" == y ]]; then
         docker login

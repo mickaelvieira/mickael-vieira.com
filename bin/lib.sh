@@ -10,11 +10,11 @@ declare -r DIST_DIR="${PUBLIC_DIR}/dist"
 declare -r OS_TYPE=$(uname -s)
 
 info() {
-    printf "\x1b[32m\xE2\x87\x92 %s\x1b[0m\n" "$1"
+    printf "\\x1b[32m\\xE2\\x87\\x92 %s\\x1b[0m\\n" "$1"
 }
 
 error() {
-    printf "\x1b[97m\x1b[41m\x21\x1b[0m \x1b[31m%s\x1b[0m\n" "$1" 1>&2
+    printf "\\x1b[97m\\x1b[41m\\x21\\x1b[0m \\x1b[31m%s\\x1b[0m\\n" "$1" 1>&2
     exit 1
 }
 

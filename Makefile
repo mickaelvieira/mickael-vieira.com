@@ -114,7 +114,7 @@ test-coveralls:
 	cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 lint:
-	@eslint --quiet -c .eslintrc src
+	@eslint --quiet -c .eslintrc public/js
 	@for file in docker hash lib.sh watch; do \
 		shellcheck -e SC1090 -e SC2155 "bin/$$file" || exit 1; \
 	done

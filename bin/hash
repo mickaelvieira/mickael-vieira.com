@@ -12,8 +12,8 @@ hash() {
 }
 
 get_hashed_files() {
-    local files=($@)
-    local reg="(^.+)\.([a-z0-9]+)\.([png|jpe?g|gif|svg|js|css]+)$"
+    local files=("$@")
+    local reg="(^.+)\\.([a-z0-9]+)\\.([png|jpe?g|gif|svg|js|css]+)$"
 
     # Generate an object containing the mapping of hashed files
     local hashes="{"
@@ -66,7 +66,7 @@ get_static_html() {
 }
 
 get_static_assets() {
-    local files=($@)
+    local files=("$@")
 
     # Generate an array containing all the assets
     local assets="["
@@ -90,7 +90,9 @@ get_static_assets() {
 
 gen_cache_definition() {
     info "Generating cache definition..."
-    local files=($(find "${DIST_DIR}/"* -type f ! -name "*.map" ! -path "*/fonts/*"))
+    local files=()
+    mapfile -t files < <(find "${DIST_DIR}/"* -type f ! -name "*.map" ! -path "*/fonts/*")
+
     local caches_json="caches.json"
     local caches_js="${PUBLIC_DIR}/caches.js"
 
