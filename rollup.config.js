@@ -35,8 +35,8 @@ const globals = {};
 
 export default {
   input: pubDir + "/main.js",
-  name: "main",
   output: {
+    name: "main",
     file: distDir + "/main.js",
     format,
     plugins,
