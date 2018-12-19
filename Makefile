@@ -51,14 +51,9 @@ src_roboto_regular    := $(src_roboto_family)/css/roboto
 src_roboto_condensed  := $(src_roboto_family)/css/roboto-condensed
 src_roboto_slab       := $(src_roboto_family)/css/roboto-slab
 
-src_bootstrap_family  := $(NODE_DIR)/bootstrap/dist
-src_bootstrap_files   := $(src_bootstrap_family)/fonts
-src_bootstrap_regular := $(src_bootstrap_family)/css
-
 tgt_fonts             := $(TARGET_DIR)/fonts
 tgt_awesome           := $(tgt_fonts)/font-awesome
 tgt_roboto            := $(tgt_fonts)/roboto
-tgt_bootstrap         := $(tgt_fonts)/bootstrap
 
 # Phony commands ===============================================================
 all: install clean build hash
@@ -131,7 +126,7 @@ build_dir:    $(tgt_css) $(tgt_js) $(tgt_roboto) $(tgt_awesome)
 build_css:    $(addprefix $(tgt_css)/,styles.css)
 build_js:     $(addprefix $(tgt_js)/,main.js)
 build_fonts:  fonts_css fonts_files
-fonts_css:    $(addprefix $(tgt_css)/,roboto.css roboto-condensed.css roboto-slab.css font-awesome.css bootstrap.css)
+fonts_css:    $(addprefix $(tgt_css)/,roboto.css roboto-condensed.css roboto-slab.css font-awesome.css)
 fonts_files:  $(tgt_roboto)/% $(tgt_awesome)/%
 
 rewrite_font_paths:
@@ -139,15 +134,12 @@ rewrite_font_paths:
 ifeq ($(OS),Darwin)
 	@sed -i .bak -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" $(TARGET_DIR)/css/font-awesome.css
 	@rm -f $(TARGET_DIR)/css/font-awesome.css.bak
-	@sed -i .bak -E "s/\.\.\/fonts/..\/fonts\/bootstrap/g" $(TARGET_DIR)/css/bootstrap.css
-	@rm -f $(TARGET_DIR)/css/bootstrap.css.bak
 	@for file in roboto.css roboto-condensed.css roboto-slab.css; do \
 		sed -i .bak -E "s/\.\.\/\.\.\/fonts/..\/fonts\/roboto/g" "$(TARGET_DIR)/css/$$file"; \
 		rm -f $(TARGET_DIR)/css/$$file.bak; \
 	done
 else
 	@sed -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" -i $(TARGET_DIR)/css/font-awesome.css
-	@sed -E "s/\.\.\/fonts/..\/fonts\/bootstrap/g" -i $(TARGET_DIR)/css/bootstrap.css
 	@for file in roboto.css roboto-condensed.css roboto-slab.css; do \
 		sed -E "s/\.\.\/\.\.\/fonts/..\/fonts\/roboto/g" -i "$(TARGET_DIR)/css/$$file"; \
 	done
@@ -205,9 +197,6 @@ $(tgt_css)/roboto-slab.css: $(src_roboto_slab)/roboto-slab-fontface.css | $(tgt_
 	$(CP) $< $@
 
 $(tgt_css)/font-awesome.css: $(src_awesome_regular)/font-awesome.min.css | $(tgt_css)
-	$(CP) $< $@
-
-$(tgt_css)/bootstrap.css: $(src_bootstrap_regular)/bootstrap.css | $(tgt_css)
 	$(CP) $< $@
 
 # Fonts Files

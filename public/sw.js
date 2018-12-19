@@ -68,8 +68,8 @@ function installHTML(caches, files) {
 }
 
 /**
-* Cache application's assets during the install
-*/
+ * Cache application's assets during the install
+ */
 self.addEventListener("install", event => {
   event.waitUntil(
     Promise.all([
@@ -80,8 +80,8 @@ self.addEventListener("install", event => {
 });
 
 /**
-* Delete outdated caches during the activation
-*/
+ * Delete outdated caches during the activation
+ */
 self.addEventListener("activate", event => {
   event.waitUntil(
     self.caches
@@ -97,8 +97,8 @@ self.addEventListener("activate", event => {
 });
 
 /**
-* Handle assets caching on the fly
-*/
+ * Handle assets caching on the fly
+ */
 self.addEventListener("fetch", event => {
   const url = new URL(event.request.url);
 
