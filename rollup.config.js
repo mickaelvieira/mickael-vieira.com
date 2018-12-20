@@ -33,15 +33,29 @@ if (isProd) {
 const external = [];
 const globals = {};
 
-export default {
-  input: pubDir + "/main.js",
-  output: {
-    name: "main",
-    file: distDir + "/main.js",
-    format,
-    plugins,
-    globals,
-    external,
-    sourcemap
+export default [
+  {
+    input: pubDir + "/sw.js",
+    output: {
+      name: "sw",
+      file: "public/sw.js",
+      format,
+      plugins,
+      globals,
+      external,
+      sourcemap
+    }
+  },
+  {
+    input: pubDir + "/main.js",
+    output: {
+      name: "main",
+      file: distDir + "/main.js",
+      format,
+      plugins,
+      globals,
+      external,
+      sourcemap
+    }
   }
-};
+];

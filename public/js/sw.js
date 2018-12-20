@@ -15,10 +15,9 @@ const activeCaches = [
  *
  * @returns Promise<Response, Error>
  */
-function cacheOrFetch(request) {
-  return self.caches
-    .match(request)
-    .then(response => response || fetch(request));
+async function cacheOrFetch(request) {
+  const response = await self.caches.match(request);
+  return response || fetch(request);
 }
 
 /**
@@ -28,18 +27,17 @@ function cacheOrFetch(request) {
  *
  * @returns Promise<Response, Error>
  */
-function cacheFonts(request) {
-  return self.caches.open(CACHE_FONTS_VERSION).then(cache =>
-    cache.match(request).then(
-      fromCache =>
-        fromCache ||
-        fetch(request).then(response => {
-          if (response.ok) {
-            cache.put(request, response.clone());
-          }
-          return response;
-        })
-    )
+async function cacheFonts(request) {
+  const cache = await self.caches.open(CACHE_FONTS_VERSION);
+  const fromCache = await cache.match(request);
+  return (
+    fromCache ||
+    fetch(request).then(response => {
+      if (response.ok) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    })
   );
 }
 
@@ -49,10 +47,9 @@ function cacheFonts(request) {
  *
  * @returns Promise
  */
-function installAssets(caches, files) {
-  return caches
-    .open(CACHE_ASSETS_VERSION)
-    .then(cache => Promise.all(files.map(file => cache.add(file))));
+async function installAssets(caches, files) {
+  const cache = await caches.open(CACHE_ASSETS_VERSION);
+  return await Promise.all(files.map(file => cache.add(file)));
 }
 
 /**
@@ -61,10 +58,9 @@ function installAssets(caches, files) {
  *
  * @returns Promise
  */
-function installHTML(caches, files) {
-  return caches
-    .open(CACHE_HTML_VERSION)
-    .then(cache => Promise.all(files.map(file => cache.add(file))));
+async function installHTML(caches, files) {
+  const cache = await caches.open(CACHE_HTML_VERSION);
+  return await Promise.all(files.map(file => cache.add(file)));
 }
 
 /**
