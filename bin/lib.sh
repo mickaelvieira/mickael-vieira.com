@@ -6,6 +6,7 @@ set -e -u -o pipefail
 # set -x
 
 declare -r PUBLIC_DIR="public"
+declare -r SRC_DIR="src"
 declare -r DIST_DIR="${PUBLIC_DIR}/dist"
 declare -r OS_TYPE=$(uname -s)
 

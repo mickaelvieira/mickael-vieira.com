@@ -12,8 +12,9 @@ watch() {
     tmux ls
 
     tmux new-window -c "$(pwd -P)" -n "tests" "make test-watch"
+    tmux new-window -c "$(pwd -P)" -n "scripts" "tsc --module amd "
     tmux new-window -c "$(pwd -P)" -n "scripts" "rollup -c rollup.config.js --watch"
-    tmux new-window -c "$(pwd -P)" -n "styles" "sass --sourcemap=inline --watch --trace \"${PUBLIC_DIR}/scss/styles.scss:${DIST_DIR}/css/styles.css\""
+    tmux new-window -c "$(pwd -P)" -n "styles" "sass --sourcemap=inline --watch --trace \"${SRC_DIR}/scss/styles.scss:${DIST_DIR}/css/styles.css\""
     tmux list-windows
     tmux select-window -t "tests"
     tmux attach-session -t "$TARGET"

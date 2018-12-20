@@ -6,8 +6,9 @@ OS         := $(shell uname -s)
 PATH       := node_modules/.bin:$(PATH)
 SHELL      := /bin/bash
 NODE_DIR   := node_modules
-SOURCE_DIR := public
-TARGET_DIR := $(SOURCE_DIR)/dist
+PUBLIC_DIR := public
+SOURCE_DIR := src
+TARGET_DIR := $(PUBLIC_DIR)/dist
 
 ifeq ($(NODE_ENV),production)
 	SASS_FLAGS := --sourcemap=none
@@ -17,16 +18,17 @@ endif
 
 POSTCSS_FLAGS := --replace true --no-map --use autoprefixer
 
-SASS     := sass $(SASS_FLAGS)
-CP       := cp -p
-CPR      := cp -vpPR
-MKD      := mkdir -p
-NODE     := node
-JEST     := NODE_ENV=test jest --config=jest.json
-RSYNC    := rsync -rut --delete-before
-UGLIFY   := uglifycss --ugly-comments
-PRETTIER := prettier --write
-LOGGER   := logger() { printf "\x1b[32m\xE2\x87\x92 %s\x1b[0m\n" "$$1"; }
+SASS       := sass $(SASS_FLAGS)
+CP         := cp -p
+CPR        := cp -vpPR
+MKD        := mkdir -p
+NODE       := node
+JEST       := NODE_ENV=test jest --config=jest.json
+RSYNC      := rsync -rut --delete-before
+UGLIFY     := uglifycss --ugly-comments
+PRETTIER   := prettier --write
+LOGGER     := logger() { printf "\x1b[32m\xE2\x87\x92 %s\x1b[0m\n" "$$1"; }
+TYPESCRIPT := tsc --module amd --lib esnext,dom
 
 # Resources paths ==============================================================
 # Stylesheets
@@ -36,8 +38,9 @@ src_css               := $(SOURCE_DIR)/css
 tgt_css               := $(TARGET_DIR)/css
 
 # Javascripts
-src_js                := $(SOURCE_DIR)/js
-src_js_main           := $(wildcard $(addprefix $(src_js)/,*.js))
+src_js                := $(SOURCE_DIR)/ts
+src_js_main           := $(addprefix $(src_js)/,main.ts contact.ts)
+src_js_sw             := $(addprefix $(src_js)/,sw.ts)
 tgt_js                := $(TARGET_DIR)/js
 
 # Fonts
@@ -124,7 +127,7 @@ fmt:
 build:        build_dir build_css build_js build_fonts rewrite_font_paths autoprefix_css minify_css
 build_dir:    $(tgt_css) $(tgt_js) $(tgt_roboto) $(tgt_awesome)
 build_css:    $(addprefix $(tgt_css)/,styles.css)
-build_js:     $(addprefix $(tgt_js)/,main.js)
+build_js:     $(addprefix $(tgt_js)/,main.js sw.js)
 build_fonts:  fonts_css fonts_files
 fonts_css:    $(addprefix $(tgt_css)/,roboto.css roboto-condensed.css roboto-slab.css font-awesome.css)
 fonts_files:  $(tgt_roboto)/% $(tgt_awesome)/%
@@ -184,7 +187,10 @@ $(tgt_css)/styles.css: $(src_scss_main) | $(tgt_css)
 
 # Javascripts
 $(tgt_js)/main.js: $(src_js_main) | $(tgt_js)
-	rollup -c rollup.config.js
+	$(TYPESCRIPT) --outFile $@ $<
+
+$(tgt_js)/sw.js: $(src_js_sw) | $(tgt_js)
+	$(TYPESCRIPT) --outFile $@ $<
 
 # Fonts CSS
 $(tgt_css)/roboto.css: $(src_roboto_regular)/roboto-fontface.css | $(tgt_css)
