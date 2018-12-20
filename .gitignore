@@ -2,6 +2,7 @@ node_modules/
 public/dist/
 npm-debug.log
 caches.json
+public/sw.js
 public/caches.js
 .sass-cache
 *.map

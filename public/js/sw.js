@@ -10,23 +10,11 @@ const activeCaches = [
   CACHE_FONTS_VERSION
 ];
 
-/**
- * @param {Request} request
- *
- * @returns Promise<Response, Error>
- */
 async function cacheOrFetch(request) {
   const response = await self.caches.match(request);
   return response || fetch(request);
 }
 
-/**
- * Cache fonts on the fly
- *
- * @param {Request} request
- *
- * @returns Promise<Response, Error>
- */
 async function cacheFonts(request) {
   const cache = await self.caches.open(CACHE_FONTS_VERSION);
   const fromCache = await cache.match(request);
@@ -41,31 +29,16 @@ async function cacheFonts(request) {
   );
 }
 
-/**
- * @param {CacheStorage} caches
- * @param {Array}        files
- *
- * @returns Promise
- */
 async function installAssets(caches, files) {
   const cache = await caches.open(CACHE_ASSETS_VERSION);
   return await Promise.all(files.map(file => cache.add(file)));
 }
 
-/**
- * @param {CacheStorage} caches
- * @param {Array}        files
- *
- * @returns Promise
- */
 async function installHTML(caches, files) {
   const cache = await caches.open(CACHE_HTML_VERSION);
   return await Promise.all(files.map(file => cache.add(file)));
 }
 
-/**
- * Cache application's assets during the install
- */
 self.addEventListener("install", event => {
   event.waitUntil(
     Promise.all([
@@ -75,9 +48,6 @@ self.addEventListener("install", event => {
   );
 });
 
-/**
- * Delete outdated caches during the activation
- */
 self.addEventListener("activate", event => {
   event.waitUntil(
     self.caches
@@ -92,9 +62,6 @@ self.addEventListener("activate", event => {
   );
 });
 
-/**
- * Handle assets caching on the fly
- */
 self.addEventListener("fetch", event => {
   const url = new URL(event.request.url);
 
