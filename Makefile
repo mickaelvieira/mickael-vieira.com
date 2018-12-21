@@ -187,10 +187,10 @@ $(tgt_css)/styles.css: $(src_scss_main) | $(tgt_css)
 
 # Javascripts
 $(tgt_js)/main.js: $(src_js_main) | $(tgt_js)
-	$(TYPESCRIPT)  --module es6 --target es6 --lib esnext,dom --outFile $@ $<
+	$(TYPESCRIPT)  --module amd --target es6 --lib esnext,dom --outFile $@ $<
 
 $(tgt_js)/sw.js: $(src_js_sw) | $(tgt_js)
-	$(TYPESCRIPT) --target es6 --lib esnext,webworker,webworker.importscripts --outFile $@ $<
+	$(TYPESCRIPT) --module amd --target es6 --lib esnext,webworker,webworker.importscripts --outFile $@ $<
 
 # Fonts CSS
 $(tgt_css)/roboto.css: $(src_roboto_regular)/roboto-fontface.css | $(tgt_css)
