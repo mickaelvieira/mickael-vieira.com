@@ -28,7 +28,7 @@ RSYNC      := rsync -rut --delete-before
 UGLIFY     := uglifycss --ugly-comments
 PRETTIER   := prettier --write
 LOGGER     := logger() { printf "\x1b[32m\xE2\x87\x92 %s\x1b[0m\n" "$$1"; }
-TYPESCRIPT := tsc --module amd --lib esnext,dom
+TYPESCRIPT := tsc --noImplicitAny --strictNullChecks --strictFunctionTypes --strictPropertyInitialization --noImplicitThis
 
 # Resources paths ==============================================================
 # Stylesheets
@@ -187,10 +187,10 @@ $(tgt_css)/styles.css: $(src_scss_main) | $(tgt_css)
 
 # Javascripts
 $(tgt_js)/main.js: $(src_js_main) | $(tgt_js)
-	$(TYPESCRIPT) --outFile $@ $<
+	$(TYPESCRIPT)  --module es6 --target es6 --lib esnext,dom --outFile $@ $<
 
 $(tgt_js)/sw.js: $(src_js_sw) | $(tgt_js)
-	$(TYPESCRIPT) --outFile $@ $<
+	$(TYPESCRIPT) --target es6 --lib esnext,webworker,webworker.importscripts --outFile $@ $<
 
 # Fonts CSS
 $(tgt_css)/roboto.css: $(src_roboto_regular)/roboto-fontface.css | $(tgt_css)

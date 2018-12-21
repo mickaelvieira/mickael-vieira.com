@@ -6,3 +6,4 @@ public/sw.js
 public/caches.js
 .sass-cache
 *.map
+*.log

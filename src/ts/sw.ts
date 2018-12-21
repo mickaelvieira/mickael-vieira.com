@@ -1,3 +1,21 @@
+// @TODO hack to work around missing clients definition
+// @see https://github.com/Microsoft/TypeScript/issues/14877
+import { } from "./index";
+declare var self: ServiceWorkerGlobalScope;
+declare var manifest: {
+  hashes: {
+    [path: string]: string;
+  },
+  assets: {
+    version: string;
+    files: string[];
+  },
+  html: {
+    version: string;
+    files: string[];
+  }
+};
+
 self.importScripts("/caches.js");
 
 /* eslint no-undef: "off" */
@@ -55,7 +73,22 @@ async function installHTML(files: string[]) {
   return await Promise.all(files.map(file => cache.add(file)));
 }
 
-self.addEventListener("install", (event: ExtendableEvent) => {
+async function deleteInactiveCaches() {
+  const names = await self.caches.keys();
+  return Promise.all(
+    names
+      .filter(name => !activeCaches.includes(name))
+      .map(name => self.caches.delete(name))
+  );
+}
+
+async function listClients() {
+  const clients = await self.clients.matchAll({ includeUncontrolled: true });
+  const urls = clients.map(({ url }) => url);
+  console.log('[ServiceWorker] Matching clients:', urls.join(', '));
+}
+
+self.addEventListener("install", async function (event: ExtendableEvent) {
   event.waitUntil(
     Promise.all([
       installAssets(manifest.assets.files),
@@ -64,22 +97,21 @@ self.addEventListener("install", (event: ExtendableEvent) => {
   );
 });
 
-self.addEventListener("activate", async (event: ExtendableEvent) => {
-  const names = await self.caches.keys();
-  event.waitUntil(
-    Promise.all(
-      names
-        .filter(name => !activeCaches.includes(name))
-        .map(name => self.caches.delete(name))
-    )
-  );
+self.addEventListener("activate", async function (event: ExtendableEvent) {
+  await listClients();
+  const deletion = await deleteInactiveCaches();
+  if (deletion.filter(d => !d).length > 0) {
+    console.log('[ServiceWorker] some cache deletion seem to have failed');
+  }
+
+  event.waitUntil(self.clients.claim());
 });
 
 function isFontsPath(path: string) {
   return /^\/dist\/fonts/.test(path);
 }
 
-self.addEventListener("fetch", (event: FetchEvent) => {
+self.addEventListener("fetch", async function (event: FetchEvent) {
   const url = new URL(event.request.url);
   const pathname = url.pathname;
   const request = event.request;
