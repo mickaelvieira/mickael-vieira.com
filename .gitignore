@@ -1,5 +1,6 @@
 node_modules/
 public/dist
+server/server
 npm-debug.log
 caches.json
 .sass-cache
