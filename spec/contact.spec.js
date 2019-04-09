@@ -1,4 +1,4 @@
-import Contact from "../public/js/contact";
+import Contact from "../src/js/contact";
 
 describe("Contact Module", function() {
   var contact;

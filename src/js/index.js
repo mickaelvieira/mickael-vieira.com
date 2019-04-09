@@ -1,6 +1,11 @@
+/* eslint no-console: "off" */
+import "roboto-fontface/css/roboto/roboto-fontface.css";
+import "font-awesome/css/font-awesome.css";
+import "../css/styles.css";
+
 import contact from "./contact";
 
-(function () {
+(() => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/sw.js")

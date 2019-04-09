@@ -1,6 +1,4 @@
-.PHONY: all clean install show watch build build_dir build_css build_js \
-	build_fonts fonts_css fonts_files rewrite_font_paths minify_css hash test test-watch \
-	test-coverage test-coveralls fmt lint docker server
+.PHONY: build
 
 OS         := $(shell uname -s)
 PATH       := node_modules/.bin:$(PATH)
@@ -28,38 +26,10 @@ RSYNC      := rsync -rut --delete-before
 UGLIFY     := uglifycss --ugly-comments
 PRETTIER   := prettier --write
 LOGGER     := logger() { printf "\x1b[32m\xE2\x87\x92 %s\x1b[0m\n" "$$1"; }
-TYPESCRIPT := tsc --noImplicitAny --strictNullChecks --strictFunctionTypes --strictPropertyInitialization --noImplicitThis
-
-# Resources paths ==============================================================
-# Stylesheets
-src_scss              := $(SOURCE_DIR)/scss
-src_scss_main         := $(wildcard $(addprefix $(src_scss)/,*.scss))
-src_css               := $(SOURCE_DIR)/css
-tgt_css               := $(TARGET_DIR)/css
-
-# Javascripts
-src_js                := $(SOURCE_DIR)/ts
-src_js_main           := $(addprefix $(src_js)/,main.ts contact.ts)
-src_js_sw             := $(addprefix $(src_js)/,sw.ts)
-tgt_js                := $(TARGET_DIR)/js
-
-# Fonts
-src_awesome_family    := $(NODE_DIR)/font-awesome
-src_awesome_files     := $(src_awesome_family)/fonts
-src_awesome_regular   := $(src_awesome_family)/css
-
-src_roboto_family     := $(NODE_DIR)/roboto-fontface
-src_roboto_files      := $(src_roboto_family)/fonts
-src_roboto_regular    := $(src_roboto_family)/css/roboto
-src_roboto_condensed  := $(src_roboto_family)/css/roboto-condensed
-src_roboto_slab       := $(src_roboto_family)/css/roboto-slab
-
-tgt_fonts             := $(TARGET_DIR)/fonts
-tgt_awesome           := $(tgt_fonts)/font-awesome
-tgt_roboto            := $(tgt_fonts)/roboto
+WEBPACK    := webpack --config webpack.config.js
 
 # Phony commands ===============================================================
-all: install clean build hash
+all: install clean build
 
 install:
 	NODE_ENV=development yarn
@@ -67,7 +37,7 @@ install:
 clean:
 	$(MKD) $(TARGET_DIR)
 	rm -rf $(TARGET_DIR)/*
-	rm -f caches.json public/caches.js
+	rm -f caches.json public/dist/caches.js public/dist/hashes.json
 
 show:
 	@echo '====== ENVIRONMENT ======'
@@ -112,102 +82,15 @@ test-coveralls:
 	cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 lint:
-	@eslint --quiet -c .eslintrc public/js
-	@for file in docker hash lib.sh watch; do \
-		shellcheck -e SC1090 -e SC2155 "bin/$$file" || exit 1; \
-	done
+	yarn lint
+	# @for file in docker hash lib.sh watch; do \
+	# 	shellcheck -e SC1090 -e SC2155 "bin/$$file" || exit 1; \
+	# done
 
 fmt:
-	$(PRETTIER) './public/js/**/*.js'
-	$(PRETTIER) './public/sw.js'
+	$(PRETTIER) './src/js/**/*.js'
 	$(PRETTIER) './server/**/*.js'
 	$(PRETTIER) './spec/**/*.js'
-	$(PRETTIER) rollup.config.js
 
-build:        build_dir build_css build_js build_fonts rewrite_font_paths autoprefix_css minify_css
-build_dir:    $(tgt_css) $(tgt_js) $(tgt_roboto) $(tgt_awesome)
-build_css:    $(addprefix $(tgt_css)/,styles.css)
-build_js:     $(addprefix $(tgt_js)/,main.js sw.js)
-build_fonts:  fonts_css fonts_files
-fonts_css:    $(addprefix $(tgt_css)/,roboto.css roboto-condensed.css roboto-slab.css font-awesome.css)
-fonts_files:  $(tgt_roboto)/% $(tgt_awesome)/%
-
-rewrite_font_paths:
-	@$(LOGGER); logger "Rewriting fonts paths..."
-ifeq ($(OS),Darwin)
-	@sed -i .bak -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" $(TARGET_DIR)/css/font-awesome.css
-	@rm -f $(TARGET_DIR)/css/font-awesome.css.bak
-	@for file in roboto.css roboto-condensed.css roboto-slab.css; do \
-		sed -i .bak -E "s/\.\.\/\.\.\/fonts/..\/fonts\/roboto/g" "$(TARGET_DIR)/css/$$file"; \
-		rm -f $(TARGET_DIR)/css/$$file.bak; \
-	done
-else
-	@sed -E "s/fonts\/fontawesome/fonts\/font-awesome\/fontawesome/g" -i $(TARGET_DIR)/css/font-awesome.css
-	@for file in roboto.css roboto-condensed.css roboto-slab.css; do \
-		sed -E "s/\.\.\/\.\.\/fonts/..\/fonts\/roboto/g" -i "$(TARGET_DIR)/css/$$file"; \
-	done
-endif
-
-minify_css:
-ifeq ($(NODE_ENV),production)
-	@$(LOGGER); logger "Minifying css files..."
-	@for file in $(shell find $(tgt_css) -type f -name "*.css"); do \
-		$(UGLIFY) "$$file" > "$$file.tmp"; \
-		rm -f "$$file"; \
-		mv "$$file.tmp" "$$file"; \
-	done
-endif
-
-autoprefix_css:
-ifeq ($(NODE_ENV),production)
-	@$(LOGGER); logger "Autoprefixing css files..."
-	@postcss $(addprefix $(tgt_css)/,styles.css) $(POSTCSS_FLAGS)
-endif
-
-# Target directories ===========================================================
-$(tgt_css):
-	$(MKD) $(tgt_css)
-
-$(tgt_js):
-	$(MKD) $(tgt_js)
-
-$(tgt_fonts):
-	$(MKD) $(tgt_fonts)
-
-$(tgt_roboto):
-	$(MKD) $(tgt_roboto)
-
-$(tgt_awesome):
-	$(MKD) $(tgt_awesome)
-
-# Targets ======================================================================
-# Stylesheets
-$(tgt_css)/styles.css: $(src_scss_main) | $(tgt_css)
-	$(SASS) $(src_scss)/styles.scss:$@
-
-# Javascripts
-$(tgt_js)/main.js: $(src_js_main) | $(tgt_js)
-	$(TYPESCRIPT)  --module amd --target es6 --lib esnext,dom --outFile $@ $<
-
-$(tgt_js)/sw.js: $(src_js_sw) | $(tgt_js)
-	$(TYPESCRIPT) --module amd --target es6 --lib esnext,webworker,webworker.importscripts --outFile $@ $<
-
-# Fonts CSS
-$(tgt_css)/roboto.css: $(src_roboto_regular)/roboto-fontface.css | $(tgt_css)
-	$(CP) $< $@
-
-$(tgt_css)/roboto-condensed.css: $(src_roboto_condensed)/roboto-condensed-fontface.css | $(tgt_css)
-	$(CP) $< $@
-
-$(tgt_css)/roboto-slab.css: $(src_roboto_slab)/roboto-slab-fontface.css | $(tgt_css)
-	$(CP) $< $@
-
-$(tgt_css)/font-awesome.css: $(src_awesome_regular)/font-awesome.min.css | $(tgt_css)
-	$(CP) $< $@
-
-# Fonts Files
-$(tgt_roboto)/%: $(src_roboto_files) | $(tgt_roboto)
-	$(RSYNC) $</. $(@D)
-
-$(tgt_awesome)/%: $(src_awesome_files) | $(tgt_awesome)
-	$(RSYNC) $</. $(@D)
+build:
+	yarn build:client

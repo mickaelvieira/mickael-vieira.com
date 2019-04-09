@@ -34,21 +34,21 @@ const parts = [
   "\u006d"
 ];
 
-export default function () {
+export default () => {
   if (!document.querySelector || !document.addEventListener) {
     return;
   }
 
-  const link: HTMLLinkElement | null = document.querySelector(".link-icon-contact");
+  const link = document.querySelector(".link-icon-contact");
 
   if (!link) {
     return;
   }
 
-  const make = function () {
+  const make = () => {
     link.href = parts.join("");
     document.removeEventListener("mousemove", make);
   };
 
   document.addEventListener("mousemove", make);
-}
+};
