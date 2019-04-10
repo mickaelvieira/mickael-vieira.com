@@ -83,7 +83,8 @@ module.exports = {
             loader: "file-loader",
             options: {
               name: "[name].[ext]",
-              outputPath: "dist/fonts"
+              outputPath: "dist/fonts",
+              publicPath: "/dist/fonts"
             }
           }
         ]

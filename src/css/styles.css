@@ -162,12 +162,12 @@ h1 {
   margin: 0;
 }
 
-h1.title {
+.title {
   display: inline-block;
   text-align: center;
 }
 
-h1.subtitle {
+.subtitle {
   color: var(--blue);
   font-weight: 300;
   font-size: 56px;
@@ -277,10 +277,11 @@ h2 {
     flex-direction: row;
   }
 
-  h1.title {
+  .title {
     margin-right: 6px;
   }
-  h1.subtitle {
+
+  .subtitle {
     margin-left: 6px;
   }
 }
