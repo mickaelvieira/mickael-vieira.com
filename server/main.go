@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	port := "8080"
+	port := "8000"
 
 	// Only for developpment
 	// static files should be served by the webserver .ie nginx
