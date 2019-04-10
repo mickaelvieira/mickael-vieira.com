@@ -1,4 +1,4 @@
-.PHONY: build
+.PHONY: build server
 
 OS         := $(shell uname -s)
 PATH       := node_modules/.bin:$(PATH)
@@ -29,7 +29,7 @@ LOGGER     := logger() { printf "\x1b[32m\xE2\x87\x92 %s\x1b[0m\n" "$$1"; }
 WEBPACK    := webpack --config webpack.config.js
 
 # Phony commands ===============================================================
-all: install clean build
+all: install clean build-client build-server
 
 install:
 	NODE_ENV=development yarn
@@ -38,6 +38,7 @@ clean:
 	$(MKD) $(TARGET_DIR)
 	rm -rf $(TARGET_DIR)/*
 	rm -f caches.json public/dist/caches.js public/dist/hashes.json
+	rm -f ./server/server
 
 show:
 	@echo '====== ENVIRONMENT ======'
@@ -54,20 +55,17 @@ show:
 	@echo 'CSS     :' $(tgt_css)
 	@echo 'JS      :' $(tgt_js)
 
-docker-run:
-	@docker run -dt -p 127.0.0.1:8000:8000 --name website --rm -P website
+build-client:
+	yarn build:client
 
-docker-build:
-	@bin/docker
+build-server:
+	cd ./server && go build
 
 server:
-	$(NODE) server/index.js
+	cd ./server && ./server
 
 watch:
-	@bin/watch
-
-hash:
-	@bin/hash
+	yarn watch:client
 
 test:
 	$(JEST)
@@ -91,6 +89,3 @@ fmt:
 	$(PRETTIER) './src/js/**/*.js'
 	$(PRETTIER) './server/**/*.js'
 	$(PRETTIER) './spec/**/*.js'
-
-build:
-	yarn build:client
