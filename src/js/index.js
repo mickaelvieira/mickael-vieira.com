@@ -1,5 +1,6 @@
 /* eslint no-console: "off" */
 import "roboto-fontface/css/roboto/roboto-fontface.css";
+import "roboto-fontface/css/roboto-condensed/roboto-condensed-fontface.css";
 import "font-awesome/css/font-awesome.css";
 import "../css/styles.css";
 
