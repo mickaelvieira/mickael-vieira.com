@@ -2,16 +2,16 @@ env:
   global:
     - MAKEFLAGS="-j 2"
 
-language: node_js
-node_js:
-  - "10"
+# language: node_js
+# node_js:
+#   - "10"
 
 script:
   - make lint
-  - make test-coverage
+  # - make test-coverage
 
-after_success:
-  - make test-coveralls
+# after_success:
+#   - make test-coveralls
 
 cache:
   directories:
