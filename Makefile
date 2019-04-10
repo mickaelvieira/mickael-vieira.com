@@ -9,14 +9,12 @@ SOURCE_DIR := src
 TARGET_DIR := $(PUBLIC_DIR)/dist
 
 ifeq ($(NODE_ENV),production)
-	SASS_FLAGS := --sourcemap=none
+	GO_FLAGS := -ldflags="-s -w"
 else
-	SASS_FLAGS := --sourcemap=inline --trace
+	GO_FLAGS :=
 endif
 
-POSTCSS_FLAGS := --replace true --no-map --use autoprefixer
-
-SASS       := sass $(SASS_FLAGS)
+GO         := go build $(GO_FLAGS)
 CP         := cp -p
 CPR        := cp -vpPR
 MKD        := mkdir -p
@@ -46,20 +44,12 @@ show:
 	@echo 'PATH    :' $(PATH)
 	@echo 'SHELL   :' $(SHELL)
 	@echo 'NODE    :' $(NODE_ENV)
-	@echo '====== SOURCES ======'
-	@echo 'SASS    :' $(src_scss)
-	@echo 'CSS     :' $(src_css)
-	@echo 'JS      :' $(src_js)
-	@echo '====== TARGETS ======'
-	@echo 'FONTS   :' $(tgt_fonts)
-	@echo 'CSS     :' $(tgt_css)
-	@echo 'JS      :' $(tgt_js)
 
 build-client:
 	yarn build:client
 
 build-server:
-	cd ./server && go build
+	cd ./server && $(GO)
 
 server:
 	cd ./server && ./server
