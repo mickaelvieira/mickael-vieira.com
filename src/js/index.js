@@ -7,16 +7,17 @@ import "../css/styles.css";
 import contact from "./contact";
 
 (() => {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .then(registration => {
-        console.log(`Registration succeeded. Scope is ${registration.scope}`);
-      })
-      .catch(error => {
-        console.log(`Registration failed with ${error}`);
-      });
-  }
+  // @TODO I need to fix caches in order to reactivate the service worker
+  // if ("serviceWorker" in navigator) {
+  //   navigator.serviceWorker
+  //     .register("/dist/js/sw.js")
+  //     .then(registration => {
+  //       console.log(`Registration succeeded. Scope is ${registration.scope}`);
+  //     })
+  //     .catch(error => {
+  //       console.log(`Registration failed with ${error}`);
+  //     });
+  // }
 
   contact();
 })();
